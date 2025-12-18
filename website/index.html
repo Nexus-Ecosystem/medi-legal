@@ -10,11 +10,11 @@
       --nexus-blue-dark:#0B3C5D;
       --nexus-blue:#1F6AE1;
       --nexus-blue-light:#6EC1FF;
-
+      
 --header-bg: linear-gradient(
   180deg,
-  #E4EEFF 0%,
-  #D6E6FF 100%
+  rgba(228, 238, 255, 0.75) 0%,
+  rgba(214, 230, 255, 0.45) 100%
 );
       --chip-bg: linear-gradient(90deg, rgba(31,106,225,.20), rgba(110,193,255,.25));
       --chip-border: rgba(31,106,225,.30);
@@ -31,10 +31,21 @@
     }
 
     /* ================= HEADER ================= */
-    header{
-      background: var(--header-bg);
-      padding: 20px 24px;
-    }
+header{
+  background: var(--header-bg);
+  padding: 20px 24px;
+
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  background-color: rgba(255,255,255,0.55);
+
+  border-bottom: 1px solid rgba(255,255,255,0.35);
+  box-shadow: 0 8px 24px rgba(11,60,93,0.12);
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
     .header-inner{
       max-width: 1200px;
