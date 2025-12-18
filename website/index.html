@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nexus Ecosystem</title>
 
-  <!-- ROBOTO (solo una vez, en HEAD) -->
+  <!-- ROBOTO -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"/>
@@ -40,21 +40,12 @@
       color:#1F2937;
     }
 
-    /* ================= HEADER ================= */
+    /* ================= HEADER (NO STICKY) ================= */
     header{
-      background: var(--header-bg);
+      background: transparent;
       padding: 16px 24px;
-
-      backdrop-filter: blur(14px) saturate(160%);
-      -webkit-backdrop-filter: blur(14px) saturate(160%);
-      background-color: rgba(255,255,255,0.55);
-
-      border-bottom: 1px solid rgba(255,255,255,0.35);
-      box-shadow: 0 8px 24px rgba(11,60,93,0.12);
-
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      position: relative; /* ✅ ya no sticky */
+      z-index: 10;
     }
 
     .header-inner{
@@ -64,6 +55,17 @@
       grid-template-columns: auto 1fr auto;
       align-items:center;
       gap: 12px;
+
+      /* ✅ GLASS + REDONDEADO */
+      background: var(--header-bg);
+      background-color: rgba(255,255,255,0.55);
+      backdrop-filter: blur(14px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: 0 10px 26px rgba(11,60,93,0.12);
+      border-radius: 18px;
+
+      padding: 12px 14px;
     }
 
     .logo{
@@ -83,7 +85,6 @@
       border-radius: 999px;
       justify-self: center;
 
-      /* para que el pill se vea “encerrado” */
       background: rgba(255,255,255,0.55);
       border: 1px solid rgba(31,106,225,.12);
       box-shadow: 0 10px 24px rgba(11,60,93,0.10);
@@ -122,6 +123,7 @@
     nav a.active{ color: var(--nexus-blue-dark); }
 
     @media (max-width:700px){
+      header{ padding: 14px 14px; }
       .header-inner{
         grid-template-columns: 1fr;
         gap: 12px;
@@ -138,7 +140,7 @@
         rgba(159,212,255,0.45) 55%,
         #FFFFFF 100%
       );
-      padding: 64px 24px 46px;
+      padding: 60px 24px 46px;
     }
 
     .medi-hero-inner{
@@ -572,7 +574,7 @@
 </section>
 
 <script>
-  // 1) Pill del menú (corregido + click)
+  // Pill del menú (correcto)
   (function(){
     const nav = document.getElementById("nav");
     const pill = document.getElementById("pill");
@@ -596,16 +598,12 @@
       pill.style.transform = `translateX(${aRect.left - navRect.left}px)`;
     }
 
-    // al cargar
     window.addEventListener("load", ()=> movePill(activeKey()));
-
-    // al redimensionar
     window.addEventListener("resize", ()=>{
       const current = links.find(a => a.classList.contains("active")) || links[0];
       movePill(current.dataset.key);
     });
 
-    // al dar click (para que se vea inmediatamente si no navegas)
     links.forEach(a=>{
       a.addEventListener("click", ()=>{
         movePill(a.dataset.key);
@@ -613,7 +611,7 @@
     });
   })();
 
-  // 2) Reveal on scroll
+  // Reveal on scroll
   (function(){
     const els = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries)=>{
