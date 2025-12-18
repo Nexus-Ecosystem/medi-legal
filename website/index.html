@@ -561,6 +561,199 @@
     </div>
   </section>
 
+  <!-- ===== MEDI CAPABILITIES CAROUSEL ===== -->
+<section class="medi-capabilities">
+  <div class="medi-capabilities-header">
+    <h2>Lo que puedes hacer con Medi</h2>
+    <p>
+      Medi es tu sistema personal para mantener el control de tu salud sin improvisar.
+      Diseñado para acompañarte todos los días con claridad, orden y confianza.
+    </p>
+  </div>
+
+  <div class="medi-carousel-wrapper">
+    <div class="medi-carousel" id="mediCarousel">
+
+      <!-- Card 1 -->
+      <article class="medi-card">
+        <div class="medi-icon">
+          <!-- reloj -->
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke-width="1.8"/>
+            <path d="M12 7v5l3 2" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Recordatorios precisos</h3>
+        <p>
+          Programa tomas por horario y mantén tus tratamientos bajo control,
+          incluso cuando sigues rutinas complejas o múltiples medicamentos.
+        </p>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="medi-card">
+        <div class="medi-icon">
+          <!-- caja -->
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 7h16v10H4z" stroke-width="1.8"/>
+            <path d="M4 7l8-4 8 4" stroke-width="1.8"/>
+          </svg>
+        </div>
+        <h3>Inventario inteligente</h3>
+        <p>
+          Visualiza lo que tienes, lo que falta y lo que necesitas reponer,
+          evitando interrupciones en tu tratamiento.
+        </p>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="medi-card">
+        <div class="medi-icon">
+          <!-- lista -->
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M8 6h12M8 12h12M8 18h12" stroke-width="1.8"/>
+            <circle cx="4" cy="6" r="1"/>
+            <circle cx="4" cy="12" r="1"/>
+            <circle cx="4" cy="18" r="1"/>
+          </svg>
+        </div>
+        <h3>Información centralizada</h3>
+        <p>
+          Toda tu información importante en un solo lugar,
+          sin notas sueltas ni búsquedas innecesarias.
+        </p>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="medi-card">
+        <div class="medi-icon">
+          <!-- check -->
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M5 13l4 4L19 7" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Uso diario sin fricción</h3>
+        <p>
+          Una experiencia rápida, clara y enfocada en lo esencial,
+          pensada para usarse todos los días sin estorbar.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<style>
+/* ===== SECTION ===== */
+.medi-capabilities{
+  background:#fff;
+  padding: 120px 0 120px; /* más arriba y abajo */
+  font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
+}
+
+.medi-capabilities-header{
+  max-width: 900px;
+  margin: 0 auto 60px;
+  text-align: center;
+  padding: 0 24px;
+}
+
+.medi-capabilities-header h2{
+  font-size: 38px;
+  font-weight: 900;
+  color: #081C3A;
+  margin-bottom: 14px;
+}
+
+.medi-capabilities-header p{
+  font-size: 17px;
+  line-height: 1.75;
+  color: rgba(8,28,58,.75);
+}
+
+/* ===== CAROUSEL ===== */
+.medi-carousel-wrapper{
+  position: relative;
+}
+
+.medi-carousel{
+  display: flex;
+  gap: 24px;
+  padding: 20px 32px;
+  width: max-content;
+  will-change: transform;
+}
+
+.medi-card{
+  width: 320px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 28px 26px 30px;
+  box-shadow: 0 20px 60px rgba(8,28,58,0.08);
+  border: 1px solid rgba(8,28,58,0.04);
+  flex-shrink: 0;
+}
+
+.medi-card h3{
+  margin: 18px 0 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #081C3A;
+}
+
+.medi-card p{
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: rgba(8,28,58,.78);
+}
+
+/* ===== ICON ===== */
+.medi-icon{
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #EEF3FF, #F7FAFF);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.medi-icon svg{
+  width: 22px;
+  height: 22px;
+  stroke: #0A3DFF;
+}
+</style>
+
+<script>
+/* ===== AUTO CAROUSEL (PING-PONG, LENTO) ===== */
+(function(){
+  const carousel = document.getElementById('mediCarousel');
+  let direction = 1;
+  let position = 0;
+  const speed = 0.25; // MÁS LENTO
+
+  function animate(){
+    const maxScroll = carousel.scrollWidth - window.innerWidth + 120;
+
+    position += speed * direction;
+
+    if(position >= maxScroll){
+      direction = -1;
+    }
+    if(position <= 0){
+      direction = 1;
+    }
+
+    carousel.style.transform = `translateX(${-position}px)`;
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+})();
+</script>
+
   <script>
     // ===== PILL CHIP =====
     (function(){
