@@ -373,31 +373,31 @@
       color: rgba(8,28,58,.75);
     }
 
-.medi-carousel-wrapper{
-  position: relative;
+    .medi-carousel-wrapper{
+      position: relative;
 
-  /* 🔥 FULL WIDTH REAL */
-  width: 100vw;
-  max-width: none;
+      /* 🔥 FULL WIDTH REAL */
+      width: 100vw;
+      max-width: none;
 
-  /* 🔥 rompe el centrado del layout padre */
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+      /* 🔥 rompe el centrado del layout padre */
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
 
-  /* padding interno opcional */
-  padding: 0 24px;
+      /* padding interno */
+      padding: 0 24px;
 
-  /* interacción */
-  overflow: hidden;
-  cursor: grab;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: pan-y;
-}
+      /* interacción */
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: pan-y;
+    }
 
-.medi-carousel-wrapper:active{
-  cursor: grabbing;
-}
+    .medi-carousel-wrapper:active{
+      cursor: grabbing;
+    }
 
     .medi-carousel{
       --side: 0px;
@@ -691,7 +691,8 @@
 
       <nav id="nav">
         <div class="pill" id="pill"></div>
-        <a href="index.html" data-key="medi">Medi</a>
+        <!-- ✅ Medi recarga esta misma página -->
+        <a href="./" data-key="medi">Medi</a>
         <a href="soporte.html" data-key="soporte">Soporte</a>
         <a href="contacto.html" data-key="contacto">Contacto</a>
       </nav>
@@ -1010,7 +1011,8 @@
         <div class="nx-footer__col">
           <h4 class="nx-footer__title">APPS</h4>
           <ul class="nx-footer__list">
-            <li><a class="nx-footer__link" href="#medi">Medi</a></li>
+            <!-- ✅ Medi en footer también recarga la misma página -->
+            <li><a class="nx-footer__link" href="./">Medi</a></li>
           </ul>
         </div>
 
@@ -1132,7 +1134,6 @@
       }
 
       function getMaxScroll(){
-        // ancho total - ancho visible
         const max = track.scrollWidth - wrapper.clientWidth;
         return Math.max(0, max);
       }
@@ -1147,9 +1148,9 @@
         applyTransform();
       }
 
-      function onDown(clientX){
+      function onDown(e, clientX){
         isDragging = true;
-        wrapper.setPointerCapture?.(event.pointerId);
+        wrapper.setPointerCapture?.(e.pointerId);
 
         startX = clientX;
         startPos = position;
@@ -1165,10 +1166,8 @@
         if(!isDragging) return;
 
         const dx = clientX - startX;
-        // arrastrar: mover el track en sentido contrario al mouse
         setPosition(startPos - dx);
 
-        // velocidad para inercia
         const now = performance.now();
         const dt = Math.max(1, now - lastT);
         const vx = (clientX - lastX) / dt;  // px/ms
@@ -1186,9 +1185,8 @@
         lastInteraction = Date.now();
       }
 
-      // Pointer events (mouse + touch)
       wrapper.addEventListener("pointerdown", (e)=>{
-        onDown(e.clientX);
+        onDown(e, e.clientX);
       });
 
       wrapper.addEventListener("pointermove", (e)=>{
@@ -1199,9 +1197,7 @@
       wrapper.addEventListener("pointercancel", onUp);
       wrapper.addEventListener("pointerleave", ()=>{ if(isDragging) onUp(); });
 
-      // Wheel horizontal “natural” (trackpad)
       wrapper.addEventListener("wheel", (e)=>{
-        // si el usuario hace scroll horizontal, movemos el carrusel
         if(Math.abs(e.deltaX) > Math.abs(e.deltaY)){
           e.preventDefault();
           setPosition(position + e.deltaX);
@@ -1209,37 +1205,26 @@
         }
       }, { passive: false });
 
-      // Pausar auto cuando el mouse está encima (opcional, se siente más controlado)
       wrapper.addEventListener("mouseenter", ()=>{ lastInteraction = Date.now(); });
       wrapper.addEventListener("touchstart", ()=>{ lastInteraction = Date.now(); }, { passive: true });
 
-      // Animación principal
       function tick(){
         const max = getMaxScroll();
-
-        // si cambió el tamaño, mantener dentro de límites
         position = clamp(position, 0, max);
 
         const idle = (Date.now() - lastInteraction) > IDLE_MS;
 
-        if(isDragging){
-          // nada: ya se aplica con onMove
-        } else {
-          // Inercia (si soltó arrastrando)
+        if(!isDragging){
           if(Math.abs(velocity) > MIN_VEL){
-            // velocity: px/ms del puntero, convertimos a desplazamiento
-            // si el puntero iba a la derecha, el contenido debería ir a la izquierda (invertimos)
-            setPosition(position - (velocity * 16)); // ~16ms por frame
+            setPosition(position - (velocity * 16));
             velocity *= FRICTION;
 
-            // si pega con bordes, rebote suave
             if(position <= 0 || position >= max){
               velocity *= -0.45;
             }
 
-            lastInteraction = Date.now(); // mientras hay inercia, cuenta como actividad
+            lastInteraction = Date.now();
           } else if(idle && max > 0){
-            // Auto ping-pong lento
             position += AUTO_SPEED * direction;
 
             if(position >= max){
@@ -1257,15 +1242,38 @@
         requestAnimationFrame(tick);
       }
 
-      // Resize => recalcular max
       window.addEventListener("resize", ()=>{
         setPosition(position);
         lastInteraction = Date.now();
       });
 
-      // init
       setPosition(0);
       requestAnimationFrame(tick);
+    })();
+  </script>
+
+  <script>
+    /* ✅ Forzar recarga cuando den click en Medi (header o footer), aunque ya estés en esa página */
+    (function(){
+      function isSamePageTarget(href){
+        return href === "./" || href === "index.html" || href === "/" || href === "";
+      }
+
+      document.addEventListener("click", function(e){
+        const a = e.target.closest("a");
+        if(!a) return;
+
+        const href = (a.getAttribute("href") || "").trim();
+        const isHeaderMedi = a.dataset && a.dataset.key === "medi";
+        const isFooterMedi = a.classList.contains("nx-footer__link") && a.textContent.trim().toLowerCase() === "medi";
+
+        if((isHeaderMedi || isFooterMedi) && isSamePageTarget(href)){
+          e.preventDefault();
+          // recarga real
+          window.location.href = href || "./";
+          window.location.reload();
+        }
+      }, true);
     })();
   </script>
 
