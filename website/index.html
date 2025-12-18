@@ -48,22 +48,21 @@
       color:#1F2937;
     }
 
-    /* ================= HEADER (ÚNICO FIXO) ================= */
-    header{
-      background: var(--header-bg);
-      padding: 20px 24px;
+header{
+  background: var(--header-bg);
+  padding: 20px 24px;
 
-      backdrop-filter: blur(14px) saturate(160%);
-      -webkit-backdrop-filter: blur(14px) saturate(160%);
-      background-color: rgba(255,255,255,0.55);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  background-color: rgba(255,255,255,0.55);
 
-      border-bottom: 1px solid rgba(255,255,255,0.35);
-      box-shadow: 0 8px 24px rgba(11,60,93,0.12);
+  border-bottom: 1px solid rgba(255,255,255,0.35);
+  box-shadow: 0 8px 24px rgba(11,60,93,0.12);
 
-      position: sticky; /* ✅ SOLO EL HEADER */
-      top: 0;
-      z-index: 1000;
-    }
+  position: sticky;
+  top: 0;
+  z-index: 9999; /* 🔒 más alto */
+}
 
     .header-inner{
       max-width: 1200px;
