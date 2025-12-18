@@ -5,47 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nexus Ecosystem</title>
 
+  <!-- ROBOTO (solo una vez, en HEAD) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+
   <style>
     :root{
       --nexus-blue-dark:#0B3C5D;
       --nexus-blue:#1F6AE1;
       --nexus-blue-light:#6EC1FF;
-      
---header-bg: linear-gradient(
-  180deg,
-  rgba(228, 238, 255, 0.75) 0%,
-  rgba(214, 230, 255, 0.45) 100%
-);
+
+      --header-bg: linear-gradient(
+        180deg,
+        rgba(228, 238, 255, 0.75) 0%,
+        rgba(214, 230, 255, 0.45) 100%
+      );
+
       --chip-bg: linear-gradient(90deg, rgba(31,106,225,.20), rgba(110,193,255,.25));
       --chip-border: rgba(31,106,225,.30);
       --text: #0B3C5D;
+
+      --medi-blue-strong:#0A3DFF;
+      --medi-blue-soft:#9FD4FF;
+      --medi-text:#081C3A;
     }
 
     *{ box-sizing:border-box; }
 
     body{
       margin:0;
-      font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+      font-family:'Roboto', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       background:#fff;
       color:#1F2937;
     }
 
     /* ================= HEADER ================= */
-header{
-  background: var(--header-bg);
-  padding: 20px 24px;
+    header{
+      background: var(--header-bg);
+      padding: 16px 24px;
 
-  backdrop-filter: blur(14px) saturate(160%);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  background-color: rgba(255,255,255,0.55);
+      backdrop-filter: blur(14px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+      background-color: rgba(255,255,255,0.55);
 
-  border-bottom: 1px solid rgba(255,255,255,0.35);
-  box-shadow: 0 8px 24px rgba(11,60,93,0.12);
+      border-bottom: 1px solid rgba(255,255,255,0.35);
+      box-shadow: 0 8px 24px rgba(11,60,93,0.12);
 
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
 
     .header-inner{
       max-width: 1200px;
@@ -53,9 +63,9 @@ header{
       display:grid;
       grid-template-columns: auto 1fr auto;
       align-items:center;
+      gap: 12px;
     }
 
-    /* Logo al inicio */
     .logo{
       width: 42px;
       height: 42px;
@@ -72,6 +82,12 @@ header{
       padding: 6px;
       border-radius: 999px;
       justify-self: center;
+
+      /* para que el pill se vea “encerrado” */
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(31,106,225,.12);
+      box-shadow: 0 10px 24px rgba(11,60,93,0.10);
+      overflow: hidden;
     }
 
     .pill{
@@ -90,7 +106,7 @@ header{
       z-index:2;
       text-decoration:none;
       font-size:14px;
-      font-weight:700;
+      font-weight:800;
       color: var(--text);
       padding: 10px 18px;
       border-radius:999px;
@@ -99,25 +115,293 @@ header{
       align-items:center;
       justify-content:center;
       transition: color .15s ease, transform .15s ease;
+      user-select:none;
     }
 
-    nav a:hover{
-      transform: translateY(-1px);
-    }
-
-    nav a.active{
-      color: var(--nexus-blue-dark);
-    }
+    nav a:hover{ transform: translateY(-1px); }
+    nav a.active{ color: var(--nexus-blue-dark); }
 
     @media (max-width:700px){
       .header-inner{
         grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 12px;
         justify-items:center;
       }
-      .logo{
-        justify-self:center;
+      .logo{ justify-self:center; }
+    }
+
+    /* ================= HERO MEDI ================= */
+    .medi-hero{
+      background: linear-gradient(
+        180deg,
+        rgba(10,61,255,0.65) 0%,
+        rgba(159,212,255,0.45) 55%,
+        #FFFFFF 100%
+      );
+      padding: 64px 24px 46px;
+    }
+
+    .medi-hero-inner{
+      max-width: 1100px;
+      margin: 0 auto;
+      display:flex;
+      justify-content:center;
+      text-align:center;
+    }
+
+    .medi-hero-content{
+      max-width: 760px;
+      animation: fadeUp .8s ease forwards;
+    }
+
+    .medi-logo-wrapper{
+      display:flex;
+      justify-content:center;
+      margin-bottom: 18px;
+    }
+
+    .medi-logo{
+      width: 120px;
+      height: 120px;
+      border-radius: 30px;
+      box-shadow: 0 22px 48px rgba(10,61,255,.35);
+      animation: floatLogo 4s ease-in-out infinite;
+    }
+
+    .medi-hero h1{
+      margin: 0 0 16px;
+      font-size: clamp(34px, 4.8vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--medi-text);
+      font-weight: 900;
+    }
+
+    .medi-hero p{
+      margin: 0 auto 22px;
+      font-size: 16.5px;
+      line-height: 1.75;
+      color: rgba(8,28,58,0.75);
+      max-width: 660px;
+      font-weight: 400;
+    }
+
+    .store-badges{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius: 14px;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .badge:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px rgba(10,61,255,.30);
+    }
+
+    .badge img{
+      height: 44px;
+      width: auto;
+      display:block;
+    }
+    .badge:nth-child(2) img{ height: 54px; }
+
+    @keyframes fadeUp{
+      from{ opacity:0; transform: translateY(18px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+    @keyframes floatLogo{
+      0%,100%{ transform: translateY(0); }
+      50%{ transform: translateY(-6px); }
+    }
+
+    /* ================= FEATURES ================= */
+    .medi-features{
+      background:#fff;
+      padding: 44px 24px 56px;
+    }
+
+    .medi-features-inner{
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .medi-features-head{
+      text-align:center;
+      margin-bottom: 18px;
+    }
+
+    .medi-features-head h2{
+      margin: 0 0 10px;
+      font-size: clamp(28px, 3.2vw, 40px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: #081C3A;
+      font-weight: 900;
+    }
+
+    .medi-features-head p{
+      margin: 0 auto;
+      max-width: 900px;
+      font-size: 17px;
+      line-height: 1.8;
+      color: rgba(8,28,58,0.78);
+    }
+
+    .feature-grid{
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .feature-row{
+      display:grid;
+      grid-template-columns: .92fr 1.08fr;
+      gap: 16px;
+      align-items:center;
+      padding: 8px 0;
+    }
+
+    .feature-row.invert{
+      grid-template-columns: 1.08fr .92fr;
+    }
+    .feature-row.invert .feature-media{ order: 2; }
+    .feature-row.invert .feature-copy{ order: 1; }
+
+    .feature-media{
+      display:flex;
+      justify-content:center;
+    }
+
+    .feature-card{
+      width: min(420px, 100%);
+      border-radius: 22px;
+      background: #F7FAFF;
+      box-shadow: 0 18px 50px rgba(10,61,255,.10);
+      overflow:hidden;
+      position: relative;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .feature-card::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: radial-gradient(circle at 30% 30%, rgba(10,61,255,.18), transparent 55%);
+      transform: translateX(-18%);
+      opacity: .55;
+      pointer-events:none;
+      animation: glowMove 6s ease-in-out infinite;
+    }
+
+    .feature-card img{
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: auto;
+      display:block;
+      border-radius: 22px;
+    }
+
+    .feature-card:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 26px 70px rgba(10,61,255,.14);
+    }
+
+    .feature-title{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .feature-icon{
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(135deg, rgba(10,61,255,.14), rgba(159,212,255,.22));
+      border: 1px solid rgba(10,61,255,.16);
+      box-shadow: 0 10px 22px rgba(10,61,255,.10);
+      transition: transform .18s ease;
+      font-size: 16px;
+    }
+
+    .feature-row:hover .feature-icon{ transform: translateY(-2px); }
+
+    .feature-copy h3{
+      margin: 0;
+      font-size: 22px;
+      color: #081C3A;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
+
+    .feature-copy p{
+      margin: 0 0 12px;
+      color: rgba(8,28,58,0.80);
+      line-height: 1.85;
+      font-size: 16.5px;
+    }
+
+    .feature-copy ul{
+      margin: 0;
+      padding-left: 18px;
+      color: rgba(8,28,58,0.76);
+      line-height: 1.8;
+      font-size: 15.5px;
+    }
+
+    /* ====== REVEAL ====== */
+    .reveal{
+      opacity: 0;
+      transform: translateY(22px);
+      filter: blur(3px);
+      transition:
+        opacity .75s cubic-bezier(.2,.8,.2,1),
+        transform .75s cubic-bezier(.2,.8,.2,1),
+        filter .75s cubic-bezier(.2,.8,.2,1);
+      will-change: opacity, transform, filter;
+    }
+    .reveal.is-visible{
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    .medi-features-head.reveal{ transition-delay: .05s; }
+    .feature-row.reveal{ transition-delay: .06s; }
+    .feature-row .feature-title.reveal{ transition-delay: .10s; }
+    .feature-row p.reveal{ transition-delay: .14s; }
+    .feature-row ul.reveal{ transition-delay: .18s; }
+
+    @keyframes glowMove{
+      0%,100%{ transform: translateX(-18%); }
+      50%{ transform: translateX(8%); }
+    }
+
+    @media (max-width: 900px){
+      .feature-row, .feature-row.invert{
+        grid-template-columns: 1fr;
+        gap: 14px;
       }
+      .feature-row.invert .feature-media,
+      .feature-row.invert .feature-copy{ order: initial; }
+      .feature-card{ width: min(520px, 100%); }
+      .reveal{ filter: blur(2px); transform: translateY(18px); }
     }
   </style>
 </head>
@@ -126,15 +410,12 @@ header{
 
 <header>
   <div class="header-inner">
-
-    <!-- Logo Nexus al inicio -->
     <img
       src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/nexus_icon.png"
       class="logo"
       alt="Nexus Ecosystem Logo"
     />
 
-    <!-- Navegación centrada -->
     <nav id="nav">
       <div class="pill" id="pill"></div>
       <a href="/medi/" data-key="medi">Medi</a>
@@ -142,59 +423,13 @@ header{
       <a href="/contacto/" data-key="contacto">Contacto</a>
     </nav>
 
-    <!-- Columna vacía para balance visual -->
     <div></div>
-
   </div>
 </header>
-
-<script>
-  (function(){
-    const nav = document.getElementById("nav");
-    const pill = document.getElementById("pill");
-    const links = Array.from(nav.querySelectorAll("a"));
-    const path = location.pathname.toLowerCase();
-
-    function activeKey(){
-      if(path.includes("soporte")) return "soporte";
-      if(path.includes("contacto")) return "contacto";
-      return "medi";
-    }
-
-    function movePill(key){
-      links.forEach(a => a.classList.toggle("active", a.dataset.key === key));
-      const active = links.find(a => a.dataset.key === key) || links[0];
-
-      const navRect = nav.getBoundingClientRect();
-      const aRect = active.getBoundingClientRect();
-
-      pill.style.width = aRect.width + "px";
-      pill.style.transform = `translateX(${aRect.left - navRect.left}px)`;
-    }
-
-    window.addEventListener("load",()=>movePill(activeKey()));
-    window.addEventListener("resize",()=>{
-      const current = links.find(a=>a.classList.contains("active")) || links[0];
-      movePill(current.dataset.key);
-    });
-  })();
-</script>
-
- <!-- Seccion de descarga en tiendas -->
-
- <!-- ROBOTO -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-  href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"
-  rel="stylesheet"
-/>
 
 <section class="medi-hero">
   <div class="medi-hero-inner">
     <div class="medi-hero-content">
-
-      <!-- LOGO MEDI (SIN CARD BLANCO) -->
       <div class="medi-logo-wrapper">
         <img
           src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_logo.png"
@@ -225,128 +460,10 @@ header{
           />
         </a>
       </div>
-
     </div>
   </div>
 </section>
 
-<style>
-  :root{
-    --medi-blue-strong:#0A3DFF;
-    --medi-blue-soft:#9FD4FF;
-    --medi-text:#081C3A;
-  }
-
-  body{
-    font-family:'Roboto', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  }
-
-  .medi-hero{
-    background: linear-gradient(
-      180deg,
-      rgba(10,61,255,0.65) 0%,
-      rgba(159,212,255,0.45) 55%,
-      #FFFFFF 100%
-    );
-    padding: 72px 24px 48px;
-  }
-
-  .medi-hero-inner{
-    max-width: 1100px;
-    margin: 0 auto;
-    display:flex;
-    justify-content:center;
-    text-align:center;
-  }
-
-  .medi-hero-content{
-    max-width: 760px;
-    animation: fadeUp .8s ease forwards;
-  }
-
-  /* LOGO LIMPIO */
-  .medi-logo-wrapper{
-    display:flex;
-    justify-content:center;
-    margin-bottom: 22px;
-  }
-
-  .medi-logo{
-    width: 110px;
-    height: 110px;
-    border-radius: 28px;
-    box-shadow: 0 22px 48px rgba(10,61,255,.35);
-    animation: floatLogo 4s ease-in-out infinite;
-  }
-
-  .medi-hero h1{
-    margin: 0 0 18px;
-    font-size: clamp(34px, 4.8vw, 52px);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: var(--medi-text);
-    font-weight: 900;
-  }
-
-  .medi-hero p{
-    margin: 0 auto 28px;
-    font-size: 16px;
-    line-height: 1.75;
-    color: rgba(8,28,58,0.75);
-    max-width: 640px;
-    font-weight: 400;
-  }
-
-  .store-badges{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap: 18px;
-    flex-wrap: wrap;
-    margin-top: 24px;
-  }
-
-  .badge{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    border-radius: 14px;
-    transition: transform .18s ease, box-shadow .18s ease;
-  }
-
-  .badge:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 14px 28px rgba(10,61,255,.30);
-  }
-
-  .badge img{
-    height: 44px;
-    width: auto;
-    display:block;
-  }
-
-  .badge:nth-child(2) img{
-    height: 54px;
-  }
-
-  @keyframes fadeUp{
-    from{
-      opacity:0;
-      transform: translateY(18px);
-    }
-    to{
-      opacity:1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes floatLogo{
-    0%,100%{ transform: translateY(0); }
-    50%{ transform: translateY(-6px); }
-  }
-</style> 
-
-  <!-- ===================== SECCIÓN: BENEFICIOS / FEATURES (fondo blanco) ===================== -->
 <section class="medi-features" id="medi-features">
   <div class="medi-features-inner">
     <header class="medi-features-head reveal">
@@ -359,29 +476,21 @@ header{
     </header>
 
     <div class="feature-grid">
-      <!-- 1 -->
       <article class="feature-row reveal">
         <div class="feature-media">
           <div class="feature-card">
-            <img
-              src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_1.png"
-              alt="Vista de Medi - Recordatorios"
-              loading="lazy"
-            />
+            <img src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_1.png" alt="Vista de Medi - Recordatorios" loading="lazy"/>
           </div>
         </div>
-
         <div class="feature-copy">
           <div class="feature-title reveal">
             <span class="feature-icon" aria-hidden="true">⏰</span>
             <h3>Recordatorios claros, sin estrés</h3>
           </div>
-
           <p class="reveal">
             Configura tus tomas y consulta tus próximos recordatorios de forma visual.
             <strong>Menos olvidos</strong>, más constancia. Ideal si llevas tratamientos, vitaminas o varias medicinas al día.
           </p>
-
           <ul class="reveal">
             <li>Te ayuda a mantener tu rutina diaria.</li>
             <li>Reduce confusiones entre tomas y horarios.</li>
@@ -390,29 +499,21 @@ header{
         </div>
       </article>
 
-      <!-- 2 (invertido) -->
       <article class="feature-row invert reveal">
         <div class="feature-media">
           <div class="feature-card">
-            <img
-              src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_2.png"
-              alt="Vista de Medi - Inventario"
-              loading="lazy"
-            />
+            <img src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_2.png" alt="Vista de Medi - Inventario" loading="lazy"/>
           </div>
         </div>
-
         <div class="feature-copy">
           <div class="feature-title reveal">
             <span class="feature-icon" aria-hidden="true">📦</span>
             <h3>Inventario inteligente</h3>
           </div>
-
           <p class="reveal">
             Ten control de lo que tienes, lo que te falta y lo que necesitas reponer.
             Medi convierte tu lista en un <strong>sistema</strong> para que compres a tiempo y evites quedarte sin tu medicamento.
           </p>
-
           <ul class="reveal">
             <li>Organiza por medicamentos activos.</li>
             <li>Consulta tu información cuando la necesites.</li>
@@ -421,29 +522,21 @@ header{
         </div>
       </article>
 
-      <!-- 3 -->
       <article class="feature-row reveal">
         <div class="feature-media">
           <div class="feature-card">
-            <img
-              src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_3.png"
-              alt="Vista de Medi - Detalles"
-              loading="lazy"
-            />
+            <img src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_3.png" alt="Vista de Medi - Detalles" loading="lazy"/>
           </div>
         </div>
-
         <div class="feature-copy">
           <div class="feature-title reveal">
             <span class="feature-icon" aria-hidden="true">🗂️</span>
             <h3>Información ordenada</h3>
           </div>
-
           <p class="reveal">
             Guarda detalles útiles y consulta tu información cuando lo necesites.
             Perfecto para quienes quieren claridad y <strong>seguir un control real</strong> sin perder tiempo.
           </p>
-
           <ul class="reveal">
             <li>Acceso rápido a lo importante.</li>
             <li>Diseño enfocado en legibilidad.</li>
@@ -452,29 +545,21 @@ header{
         </div>
       </article>
 
-      <!-- 4 (invertido) -->
       <article class="feature-row invert reveal">
         <div class="feature-media">
           <div class="feature-card">
-            <img
-              src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_4.png"
-              alt="Vista de Medi - Control diario"
-              loading="lazy"
-            />
+            <img src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_4.png" alt="Vista de Medi - Control diario" loading="lazy"/>
           </div>
         </div>
-
         <div class="feature-copy">
           <div class="feature-title reveal">
             <span class="feature-icon" aria-hidden="true">✅</span>
             <h3>Hecho para usarlo diario</h3>
           </div>
-
           <p class="reveal">
             Medi está pensado para sentirse rápido y simple. Entras, revisas, registras y sigues tu día.
             Es el tipo de app que <strong>sí se mantiene</strong> porque no estorba: ayuda.
           </p>
-
           <ul class="reveal">
             <li>Flujo rápido y natural.</li>
             <li>Se adapta a rutinas reales.</li>
@@ -486,207 +571,49 @@ header{
   </div>
 </section>
 
-<!-- ROBOTO (si ya lo tienes arriba del documento, puedes borrar este bloque) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"/>
-
-<style>
-  .medi-features{
-    background:#fff;
-    padding: 44px 24px 56px;
-    font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  }
-
-  .medi-features-inner{
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .medi-features-head{
-    text-align:center;
-    margin-bottom: 22px;
-  }
-
-  .medi-features-head h2{
-    margin: 0 0 10px;
-    font-size: clamp(28px, 3.2vw, 40px);
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-    color: #081C3A;
-    font-weight: 900;
-  }
-
-  .medi-features-head p{
-    margin: 0 auto;
-    max-width: 900px;
-    font-size: 17px;
-    line-height: 1.8;
-    color: rgba(8,28,58,0.78);
-  }
-
-  .feature-grid{
-    display:flex;
-    flex-direction:column;
-    gap: 16px;
-    margin-top: 16px;
-  }
-
-  .feature-row{
-    display:grid;
-    grid-template-columns: .95fr 1.05fr;
-    gap: 18px;
-    align-items:center;
-    padding: 8px 0;
-  }
-
-  .feature-row.invert{
-    grid-template-columns: 1.05fr .95fr;
-  }
-
-  .feature-row.invert .feature-media{ order: 2; }
-  .feature-row.invert .feature-copy{ order: 1; }
-
-  .feature-media{
-    display:flex;
-    justify-content:center;
-  }
-
-  .feature-card{
-    width: min(460px, 100%);
-    border-radius: 22px;
-    background: #F7FAFF;
-    box-shadow: 0 18px 50px rgba(10,61,255,.10);
-    overflow:hidden;
-    transform: translateZ(0);
-    position: relative;
-    transition: transform .18s ease, box-shadow .18s ease;
-  }
-
-  .feature-card::before{
-    content:"";
-    position:absolute;
-    inset:-40%;
-    background: radial-gradient(circle at 30% 30%, rgba(10,61,255,.18), transparent 55%);
-    transform: translateX(-18%);
-    opacity: .55;
-    pointer-events:none;
-    animation: glowMove 6s ease-in-out infinite;
-  }
-
-  .feature-card img{
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: auto;
-    display:block;
-    border-radius: 22px;
-  }
-
-  .feature-card:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 26px 70px rgba(10,61,255,.14);
-  }
-
-  .feature-title{
-    display:flex;
-    align-items:center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .feature-icon{
-    width: 36px;
-    height: 36px;
-    border-radius: 12px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    background: linear-gradient(135deg, rgba(10,61,255,.14), rgba(159,212,255,.22));
-    border: 1px solid rgba(10,61,255,.16);
-    box-shadow: 0 10px 22px rgba(10,61,255,.10);
-    transform: translateY(0);
-    transition: transform .18s ease;
-    font-size: 16px;
-  }
-
-  .feature-row:hover .feature-icon{
-    transform: translateY(-2px);
-  }
-
-  .feature-copy h3{
-    margin: 0;
-    font-size: 22px;
-    color: #081C3A;
-    font-weight: 900;
-    letter-spacing: -0.01em;
-    line-height: 1.15;
-  }
-
-  .feature-copy p{
-    margin: 0 0 12px;
-    color: rgba(8,28,58,0.80);
-    line-height: 1.85;
-    font-size: 16.5px;
-  }
-
-  .feature-copy ul{
-    margin: 0;
-    padding-left: 18px;
-    color: rgba(8,28,58,0.76);
-    line-height: 1.8;
-    font-size: 15.5px;
-  }
-
-  /* ====== REVEAL “MEDIO” (más notorio) ====== */
-  .reveal{
-    opacity: 0;
-    transform: translateY(22px);
-    filter: blur(3px);
-    transition:
-      opacity .75s cubic-bezier(.2,.8,.2,1),
-      transform .75s cubic-bezier(.2,.8,.2,1),
-      filter .75s cubic-bezier(.2,.8,.2,1);
-    will-change: opacity, transform, filter;
-  }
-  .reveal.is-visible{
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-
-  /* Stagger (para que no aparezca todo al mismo tiempo) */
-  .medi-features-head.reveal{ transition-delay: .05s; }
-  .feature-row.reveal{ transition-delay: .06s; }
-  .feature-row .feature-title.reveal{ transition-delay: .10s; }
-  .feature-row p.reveal{ transition-delay: .14s; }
-  .feature-row ul.reveal{ transition-delay: .18s; }
-
-  @keyframes glowMove{
-    0%,100%{ transform: translateX(-18%); }
-    50%{ transform: translateX(8%); }
-  }
-
-  @media (max-width: 900px){
-    .feature-row, .feature-row.invert{
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-    .feature-row.invert .feature-media,
-    .feature-row.invert .feature-copy{
-      order: initial;
-    }
-    .feature-card{
-      width: min(520px, 100%);
-    }
-
-    /* En móvil menos blur para que se sienta rápido */
-    .reveal{ filter: blur(2px); transform: translateY(18px); }
-  }
-</style>
-
 <script>
-  // Reveal on scroll (más “medio”: umbral + rootMargin para que entre más suave)
+  // 1) Pill del menú (corregido + click)
+  (function(){
+    const nav = document.getElementById("nav");
+    const pill = document.getElementById("pill");
+    const links = Array.from(nav.querySelectorAll("a"));
+    const path = (location.pathname || "/").toLowerCase();
+
+    function activeKey(){
+      if(path.includes("soporte")) return "soporte";
+      if(path.includes("contacto")) return "contacto";
+      return "medi";
+    }
+
+    function movePill(key){
+      links.forEach(a => a.classList.toggle("active", a.dataset.key === key));
+      const active = links.find(a => a.dataset.key === key) || links[0];
+
+      const navRect = nav.getBoundingClientRect();
+      const aRect = active.getBoundingClientRect();
+
+      pill.style.width = aRect.width + "px";
+      pill.style.transform = `translateX(${aRect.left - navRect.left}px)`;
+    }
+
+    // al cargar
+    window.addEventListener("load", ()=> movePill(activeKey()));
+
+    // al redimensionar
+    window.addEventListener("resize", ()=>{
+      const current = links.find(a => a.classList.contains("active")) || links[0];
+      movePill(current.dataset.key);
+    });
+
+    // al dar click (para que se vea inmediatamente si no navegas)
+    links.forEach(a=>{
+      a.addEventListener("click", ()=>{
+        movePill(a.dataset.key);
+      });
+    });
+  })();
+
+  // 2) Reveal on scroll
   (function(){
     const els = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries)=>{
@@ -696,10 +623,7 @@ header{
           io.unobserve(e.target);
         }
       });
-    }, {
-      threshold: 0.22,
-      rootMargin: "0px 0px -12% 0px"
-    });
+    }, { threshold: 0.22, rootMargin: "0px 0px -12% 0px" });
 
     els.forEach(el=>io.observe(el));
   })();
