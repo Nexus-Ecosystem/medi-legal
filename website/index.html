@@ -120,9 +120,7 @@
       line-height: 1;
     }
 
-    nav a.active{
-      color: var(--nexus-blue-dark);
-    }
+    nav a.active{ color: var(--nexus-blue-dark); }
 
     @media (max-width:700px){
       .header-inner{
@@ -152,9 +150,7 @@
       text-align:center;
     }
 
-    .medi-hero-content{
-      max-width: 760px;
-    }
+    .medi-hero-content{ max-width: 760px; }
 
     .medi-logo-wrapper{
       display:flex;
@@ -208,7 +204,6 @@
       width: auto;
       display:block;
     }
-
     .badge:nth-child(2) img{ height: 54px; }
 
     /* ================= FEATURES ================= */
@@ -259,9 +254,7 @@
       padding: 8px 0;
     }
 
-    .feature-row.invert{
-      grid-template-columns: 1.05fr .95fr;
-    }
+    .feature-row.invert{ grid-template-columns: 1.05fr .95fr; }
     .feature-row.invert .feature-media{ order: 2; }
     .feature-row.invert .feature-copy{ order: 1; }
 
@@ -350,21 +343,19 @@
       .feature-row.invert .feature-copy{
         order: initial;
       }
-      .feature-card{
-        width: min(520px, 100%);
-      }
+      .feature-card{ width: min(520px, 100%); }
     }
 
     /* ================== CAPABILITIES CAROUSEL ================== */
     .medi-capabilities{
       background:#fff;
-      padding: 120px 0 120px;
+      padding: 110px 0 120px;
       overflow: hidden;
     }
 
     .medi-capabilities-header{
       max-width: 900px;
-      margin: 0 auto 60px;
+      margin: 0 auto 54px;
       text-align: center;
       padding: 0 24px;
     }
@@ -382,21 +373,32 @@
       color: rgba(8,28,58,.75);
     }
 
-    .medi-carousel-wrapper{ position: relative; }
+    .medi-carousel-wrapper{
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 18px;
+
+      /* ✅ para arrastrar con mouse/touch */
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: pan-y; /* permite scroll vertical normal */
+    }
+    .medi-carousel-wrapper:active{ cursor: grabbing; }
 
     .medi-carousel{
-      --side: 32px;
+      --side: 0px;
       --gap: 24px;
 
       display: flex;
       gap: var(--gap);
       padding: 20px var(--side);
-
       width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
 
       will-change: transform;
+      transform: translateX(0px);
     }
 
     .medi-card{
@@ -448,25 +450,20 @@
 
     @media (max-width: 980px){
       .medi-card{
-        width: calc((100% - (2 * var(--side)) - (1 * var(--gap))) / 2);
+        width: calc((100% - (1 * var(--gap))) / 2);
         min-height: 320px;
       }
     }
 
     @media (max-width: 640px){
-      .medi-carousel{
-        --side: 18px;
-        --gap: 16px;
-        padding: 18px var(--side);
-      }
+      .medi-carousel{ --gap: 16px; }
       .medi-card{
-        width: calc(100% - (2 * var(--side)));
+        width: 100%;
         min-height: 300px;
       }
     }
 
-    /* ================== CTA (INVERTIDO COMO HERO) ================== */
-    /* ✅ Pediste: empezar blanco y terminar azul (como el inicio pero invertido) */
+    /* ================== CTA (INVERTIDO) ================== */
     .medi-cta{
       background: linear-gradient(
         180deg,
@@ -535,6 +532,138 @@
       .medi-cta-main{ font-size: 17px; }
       .medi-cta-secondary{ font-size: 15.5px; }
     }
+
+    /* ================= FOOTER (Nexus) ================= */
+    :root{
+      --nx-bg: #0B1220;
+      --nx-border: rgba(255,255,255,.12);
+      --nx-text: rgba(255,255,255,.82);
+      --nx-muted: rgba(255,255,255,.58);
+      --nx-soft: rgba(255,255,255,.42);
+      --nx-accent: #1F6AE1;
+      --nx-accent2: #6EC1FF;
+    }
+
+    .nx-footer{
+      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      background:
+        radial-gradient(900px 320px at 18% 0%, rgba(31,106,225,.20), transparent 58%),
+        radial-gradient(900px 320px at 82% 0%, rgba(110,193,255,.14), transparent 60%),
+        var(--nx-bg);
+      color: var(--nx-text);
+      padding: 40px 18px 18px;
+      border-top: 1px solid var(--nx-border);
+    }
+
+    .nx-footer__inner{
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.35fr 1.65fr;
+      gap: 26px;
+      align-items: start;
+    }
+
+    .nx-footer__brand{ padding-top: 2px; }
+
+    .nx-footer__brandTop{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 36px;
+    }
+
+    .nx-logo{
+      width: 42px;
+      height: 42px;
+      display: block;
+      object-fit: contain;
+      flex: 0 0 auto;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
+    }
+
+    .nx-footer__brandName{
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: .2px;
+      color: rgba(255,255,255,.92);
+      line-height: 1.1;
+    }
+
+    .nx-footer__brandDesc{
+      margin-top: 6px;
+      font-size: 14px;
+      line-height: 1.45;
+      color: var(--nx-muted);
+      max-width: 420px;
+    }
+
+    .nx-footer__cols{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(160px, 1fr));
+      gap: 18px;
+    }
+
+    .nx-footer__title{
+      margin: 0 0 10px;
+      font-size: 13px;
+      letter-spacing: .7px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.86);
+      line-height: 1.1;
+    }
+
+    .nx-footer__list{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .nx-footer__link{
+      color: var(--nx-muted);
+      text-decoration: none;
+      font-size: 14px;
+      display: inline-block;
+      padding: 6px 0;
+      transition: color .15s ease, transform .15s ease;
+    }
+
+    .nx-footer__link:hover{
+      color: rgba(255,255,255,.92);
+      transform: translateY(-1px);
+    }
+
+    .nx-footer__email{
+      color: rgba(255,255,255,.60);
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      line-height: 1.35;
+    }
+
+    .nx-footer__bottom{
+      max-width: 1120px;
+      margin: 22px auto 0;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: var(--nx-soft);
+      font-size: 13px;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+
+    @media (max-width: 940px){
+      .nx-footer__inner{ grid-template-columns: 1fr; }
+      .nx-footer__cols{
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-top: 10px;
+      }
+      .nx-footer__brandDesc{ max-width: 100%; }
+    }
   </style>
 </head>
 
@@ -561,7 +690,7 @@
   </header>
 
   <!-- ================= HERO ================= -->
-  <section class="medi-hero">
+  <section class="medi-hero" id="medi">
     <div class="medi-hero-inner">
       <div class="medi-hero-content">
         <div class="medi-logo-wrapper reveal">
@@ -746,8 +875,8 @@
       </p>
     </div>
 
-    <div class="medi-carousel-wrapper">
-      <div class="medi-carousel" id="mediCarousel">
+    <div class="medi-carousel-wrapper" id="mediCarouselWrapper">
+      <div class="medi-carousel" id="mediCarouselTrack">
 
         <article class="medi-card">
           <div class="medi-icon">
@@ -848,28 +977,63 @@
     </div>
   </section>
 
+  <!-- ================= FOOTER — Nexus Ecosystem ================= -->
+  <footer class="nx-footer">
+    <div class="nx-footer__inner">
+
+      <div class="nx-footer__brand">
+        <div class="nx-footer__brandTop">
+          <img
+            src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/nexus_icon.png"
+            class="nx-logo"
+            alt="Nexus Ecosystem Logo"
+          />
+          <div class="nx-footer__brandText">
+            <div class="nx-footer__brandName">Nexus Ecosystem</div>
+            <div class="nx-footer__brandDesc">Ecosistema de apps y soluciones digitales modernas.</div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="nx-footer__cols" aria-label="Enlaces del sitio">
+        <div class="nx-footer__col">
+          <h4 class="nx-footer__title">APPS</h4>
+          <ul class="nx-footer__list">
+            <li><a class="nx-footer__link" href="#medi">Medi</a></li>
+          </ul>
+        </div>
+
+        <div class="nx-footer__col">
+          <h4 class="nx-footer__title">EMPRESA</h4>
+          <ul class="nx-footer__list">
+            <li><a class="nx-footer__link" href="#terminos">Términos y condiciones</a></li>
+            <li><a class="nx-footer__link" href="#privacidad">Aviso de privacidad</a></li>
+          </ul>
+        </div>
+
+        <div class="nx-footer__col">
+          <h4 class="nx-footer__title">CONTACTO</h4>
+          <ul class="nx-footer__list">
+            <li>
+              <a class="nx-footer__link nx-footer__email" href="mailto:nexus.ecosystem.soporte@gmail.com">
+                nexus.ecosystem.soporte@gmail.com
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="nx-footer__bottom">
+      <span>© <span id="nxYear"></span> Nexus Ecosystem</span>
+    </div>
+  </footer>
+
   <script>
-    /* ===== AUTO CAROUSEL (PING-PONG, LENTO) ===== */
-    (function(){
-      const carousel = document.getElementById('mediCarousel');
-      let direction = 1;
-      let position = 0;
-      const speed = 0.25;
-
-      function animate(){
-        const wrapperWidth = carousel.parentElement.getBoundingClientRect().width;
-        const maxScroll = Math.max(0, carousel.scrollWidth - wrapperWidth);
-
-        position += speed * direction;
-
-        if(position >= maxScroll) direction = -1;
-        if(position <= 0) direction = 1;
-
-        carousel.style.transform = `translateX(${-position}px)`;
-        requestAnimationFrame(animate);
-      }
-
-      animate();
+    // Año footer
+    (function () {
+      var el = document.getElementById("nxYear");
+      if (el) el.textContent = new Date().getFullYear();
     })();
   </script>
 
@@ -924,6 +1088,173 @@
       }, { threshold: 0.16, rootMargin: "0px 0px -10% 0px" });
 
       els.forEach(el=>io.observe(el));
+    })();
+  </script>
+
+  <script>
+    /* ===== CAROUSEL: DRAG CON MOUSE/TOUCH + AUTO LENTO SI NO HAY ACTIVIDAD ===== */
+    (function(){
+      const wrapper = document.getElementById("mediCarouselWrapper");
+      const track = document.getElementById("mediCarouselTrack");
+      if(!wrapper || !track) return;
+
+      let position = 0;          // px
+      let direction = 1;         // 1 o -1
+      let isDragging = false;
+
+      let startX = 0;
+      let startPos = 0;
+
+      let lastX = 0;
+      let lastT = 0;
+      let velocity = 0;
+
+      let lastInteraction = Date.now();
+
+      const AUTO_SPEED = 0.22;     // lento
+      const IDLE_MS = 1200;        // si pasa 1.2s sin interacción, auto-mueve
+      const FRICTION = 0.92;       // inercia suave
+      const MIN_VEL = 0.02;
+
+      function clamp(v, min, max){
+        return Math.max(min, Math.min(max, v));
+      }
+
+      function getMaxScroll(){
+        // ancho total - ancho visible
+        const max = track.scrollWidth - wrapper.clientWidth;
+        return Math.max(0, max);
+      }
+
+      function applyTransform(){
+        track.style.transform = `translateX(${-position}px)`;
+      }
+
+      function setPosition(newPos){
+        const max = getMaxScroll();
+        position = clamp(newPos, 0, max);
+        applyTransform();
+      }
+
+      function onDown(clientX){
+        isDragging = true;
+        wrapper.setPointerCapture?.(event.pointerId);
+
+        startX = clientX;
+        startPos = position;
+
+        lastX = clientX;
+        lastT = performance.now();
+        velocity = 0;
+
+        lastInteraction = Date.now();
+      }
+
+      function onMove(clientX){
+        if(!isDragging) return;
+
+        const dx = clientX - startX;
+        // arrastrar: mover el track en sentido contrario al mouse
+        setPosition(startPos - dx);
+
+        // velocidad para inercia
+        const now = performance.now();
+        const dt = Math.max(1, now - lastT);
+        const vx = (clientX - lastX) / dt;  // px/ms
+        velocity = vx;
+
+        lastX = clientX;
+        lastT = now;
+
+        lastInteraction = Date.now();
+      }
+
+      function onUp(){
+        if(!isDragging) return;
+        isDragging = false;
+        lastInteraction = Date.now();
+      }
+
+      // Pointer events (mouse + touch)
+      wrapper.addEventListener("pointerdown", (e)=>{
+        onDown(e.clientX);
+      });
+
+      wrapper.addEventListener("pointermove", (e)=>{
+        onMove(e.clientX);
+      });
+
+      wrapper.addEventListener("pointerup", onUp);
+      wrapper.addEventListener("pointercancel", onUp);
+      wrapper.addEventListener("pointerleave", ()=>{ if(isDragging) onUp(); });
+
+      // Wheel horizontal “natural” (trackpad)
+      wrapper.addEventListener("wheel", (e)=>{
+        // si el usuario hace scroll horizontal, movemos el carrusel
+        if(Math.abs(e.deltaX) > Math.abs(e.deltaY)){
+          e.preventDefault();
+          setPosition(position + e.deltaX);
+          lastInteraction = Date.now();
+        }
+      }, { passive: false });
+
+      // Pausar auto cuando el mouse está encima (opcional, se siente más controlado)
+      wrapper.addEventListener("mouseenter", ()=>{ lastInteraction = Date.now(); });
+      wrapper.addEventListener("touchstart", ()=>{ lastInteraction = Date.now(); }, { passive: true });
+
+      // Animación principal
+      function tick(){
+        const max = getMaxScroll();
+
+        // si cambió el tamaño, mantener dentro de límites
+        position = clamp(position, 0, max);
+
+        const idle = (Date.now() - lastInteraction) > IDLE_MS;
+
+        if(isDragging){
+          // nada: ya se aplica con onMove
+        } else {
+          // Inercia (si soltó arrastrando)
+          if(Math.abs(velocity) > MIN_VEL){
+            // velocity: px/ms del puntero, convertimos a desplazamiento
+            // si el puntero iba a la derecha, el contenido debería ir a la izquierda (invertimos)
+            setPosition(position - (velocity * 16)); // ~16ms por frame
+            velocity *= FRICTION;
+
+            // si pega con bordes, rebote suave
+            if(position <= 0 || position >= max){
+              velocity *= -0.45;
+            }
+
+            lastInteraction = Date.now(); // mientras hay inercia, cuenta como actividad
+          } else if(idle && max > 0){
+            // Auto ping-pong lento
+            position += AUTO_SPEED * direction;
+
+            if(position >= max){
+              position = max;
+              direction = -1;
+            } else if(position <= 0){
+              position = 0;
+              direction = 1;
+            }
+
+            applyTransform();
+          }
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      // Resize => recalcular max
+      window.addEventListener("resize", ()=>{
+        setPosition(position);
+        lastInteraction = Date.now();
+      });
+
+      // init
+      setPosition(0);
+      requestAnimationFrame(tick);
     })();
   </script>
 
