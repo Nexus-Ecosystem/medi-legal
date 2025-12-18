@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nexus Ecosystem</title>
+  <title>Nexus Ecosystem — Medi</title>
 
   <!-- ROBOTO -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,10 +12,12 @@
 
   <style>
     :root{
+      /* Nexus */
       --nexus-blue-dark:#0B3C5D;
       --nexus-blue:#1F6AE1;
       --nexus-blue-light:#6EC1FF;
 
+      /* Header glass */
       --header-bg: linear-gradient(
         180deg,
         rgba(228, 238, 255, 0.75) 0%,
@@ -26,12 +28,18 @@
       --chip-border: rgba(31,106,225,.30);
       --text: #0B3C5D;
 
+      /* Medi */
       --medi-blue-strong:#0A3DFF;
       --medi-blue-soft:#9FD4FF;
       --medi-text:#081C3A;
     }
 
     *{ box-sizing:border-box; }
+
+    html, body{
+      height:auto;
+      overflow:auto;
+    }
 
     body{
       margin:0;
@@ -40,12 +48,21 @@
       color:#1F2937;
     }
 
-    /* ================= HEADER (NO STICKY) ================= */
+    /* ================= HEADER (ÚNICO FIXO) ================= */
     header{
-      background: transparent;
-      padding: 16px 24px;
-      position: relative; /* ✅ ya no sticky */
-      z-index: 10;
+      background: var(--header-bg);
+      padding: 20px 24px;
+
+      backdrop-filter: blur(14px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+      background-color: rgba(255,255,255,0.55);
+
+      border-bottom: 1px solid rgba(255,255,255,0.35);
+      box-shadow: 0 8px 24px rgba(11,60,93,0.12);
+
+      position: sticky; /* ✅ SOLO EL HEADER */
+      top: 0;
+      z-index: 1000;
     }
 
     .header-inner{
@@ -55,17 +72,6 @@
       grid-template-columns: auto 1fr auto;
       align-items:center;
       gap: 12px;
-
-      /* ✅ GLASS + REDONDEADO */
-      background: var(--header-bg);
-      background-color: rgba(255,255,255,0.55);
-      backdrop-filter: blur(14px) saturate(160%);
-      -webkit-backdrop-filter: blur(14px) saturate(160%);
-      border: 1px solid rgba(255,255,255,0.55);
-      box-shadow: 0 10px 26px rgba(11,60,93,0.12);
-      border-radius: 18px;
-
-      padding: 12px 14px;
     }
 
     .logo{
@@ -76,7 +82,6 @@
       justify-self: start;
     }
 
-    /* ================= NAV ================= */
     nav{
       position: relative;
       display:flex;
@@ -84,11 +89,6 @@
       padding: 6px;
       border-radius: 999px;
       justify-self: center;
-
-      background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(31,106,225,.12);
-      box-shadow: 0 10px 24px rgba(11,60,93,0.10);
-      overflow: hidden;
     }
 
     .pill{
@@ -115,21 +115,27 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      transition: color .15s ease, transform .15s ease;
-      user-select:none;
+      transition: transform .15s ease;
+      line-height: 1;
     }
 
-    nav a:hover{ transform: translateY(-1px); }
-    nav a.active{ color: var(--nexus-blue-dark); }
+    nav a:hover{
+      transform: translateY(-1px);
+    }
+
+    nav a.active{
+      color: var(--nexus-blue-dark);
+    }
 
     @media (max-width:700px){
-      header{ padding: 14px 14px; }
       .header-inner{
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 14px;
         justify-items:center;
       }
-      .logo{ justify-self:center; }
+      .logo{
+        justify-self:center;
+      }
     }
 
     /* ================= HERO MEDI ================= */
@@ -140,7 +146,7 @@
         rgba(159,212,255,0.45) 55%,
         #FFFFFF 100%
       );
-      padding: 60px 24px 46px;
+      padding: 72px 24px 48px;
     }
 
     .medi-hero-inner{
@@ -153,7 +159,6 @@
 
     .medi-hero-content{
       max-width: 760px;
-      animation: fadeUp .8s ease forwards;
     }
 
     .medi-logo-wrapper{
@@ -163,8 +168,8 @@
     }
 
     .medi-logo{
-      width: 120px;
-      height: 120px;
+      width: 122px; /* ✅ un poco más grande */
+      height: 122px;
       border-radius: 30px;
       box-shadow: 0 22px 48px rgba(10,61,255,.35);
       animation: floatLogo 4s ease-in-out infinite;
@@ -215,21 +220,20 @@
       width: auto;
       display:block;
     }
-    .badge:nth-child(2) img{ height: 54px; }
 
-    @keyframes fadeUp{
-      from{ opacity:0; transform: translateY(18px); }
-      to{ opacity:1; transform: translateY(0); }
+    .badge:nth-child(2) img{
+      height: 54px;
     }
+
     @keyframes floatLogo{
       0%,100%{ transform: translateY(0); }
       50%{ transform: translateY(-6px); }
     }
 
-    /* ================= FEATURES ================= */
+    /* ================= FEATURES (NO STICKY) ================= */
     .medi-features{
       background:#fff;
-      padding: 44px 24px 56px;
+      padding: 40px 24px 60px;
     }
 
     .medi-features-inner{
@@ -244,7 +248,7 @@
 
     .medi-features-head h2{
       margin: 0 0 10px;
-      font-size: clamp(28px, 3.2vw, 40px);
+      font-size: clamp(30px, 3.3vw, 44px);
       line-height: 1.08;
       letter-spacing: -0.02em;
       color: #081C3A;
@@ -253,9 +257,9 @@
 
     .medi-features-head p{
       margin: 0 auto;
-      max-width: 900px;
-      font-size: 17px;
-      line-height: 1.8;
+      max-width: 920px;
+      font-size: 17.5px;
+      line-height: 1.85;
       color: rgba(8,28,58,0.78);
     }
 
@@ -263,19 +267,19 @@
       display:flex;
       flex-direction:column;
       gap: 14px;
-      margin-top: 14px;
+      margin-top: 18px;
     }
 
     .feature-row{
       display:grid;
-      grid-template-columns: .92fr 1.08fr;
-      gap: 16px;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 18px;
       align-items:center;
       padding: 8px 0;
     }
 
     .feature-row.invert{
-      grid-template-columns: 1.08fr .92fr;
+      grid-template-columns: 1.05fr .95fr;
     }
     .feature-row.invert .feature-media{ order: 2; }
     .feature-row.invert .feature-copy{ order: 1; }
@@ -286,7 +290,7 @@
     }
 
     .feature-card{
-      width: min(420px, 100%);
+      width: min(410px, 100%); /* ✅ un poco más chica */
       border-radius: 22px;
       background: #F7FAFF;
       box-shadow: 0 18px 50px rgba(10,61,255,.10);
@@ -328,9 +332,9 @@
     }
 
     .feature-icon{
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
+      width: 38px;
+      height: 38px;
+      border-radius: 13px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -339,13 +343,16 @@
       box-shadow: 0 10px 22px rgba(10,61,255,.10);
       transition: transform .18s ease;
       font-size: 16px;
+      flex: 0 0 auto;
     }
 
-    .feature-row:hover .feature-icon{ transform: translateY(-2px); }
+    .feature-row:hover .feature-icon{
+      transform: translateY(-2px);
+    }
 
     .feature-copy h3{
       margin: 0;
-      font-size: 22px;
+      font-size: 24px; /* ✅ texto más grande */
       color: #081C3A;
       font-weight: 900;
       letter-spacing: -0.01em;
@@ -354,20 +361,25 @@
 
     .feature-copy p{
       margin: 0 0 12px;
-      color: rgba(8,28,58,0.80);
-      line-height: 1.85;
-      font-size: 16.5px;
+      color: rgba(8,28,58,0.82);
+      line-height: 1.9;
+      font-size: 17px; /* ✅ texto más grande */
     }
 
     .feature-copy ul{
       margin: 0;
       padding-left: 18px;
-      color: rgba(8,28,58,0.76);
-      line-height: 1.8;
-      font-size: 15.5px;
+      color: rgba(8,28,58,0.78);
+      line-height: 1.85;
+      font-size: 16px; /* ✅ texto más grande */
     }
 
-    /* ====== REVEAL ====== */
+    @keyframes glowMove{
+      0%,100%{ transform: translateX(-18%); }
+      50%{ transform: translateX(8%); }
+    }
+
+    /* ✅ Reveal “medio” */
     .reveal{
       opacity: 0;
       transform: translateY(22px);
@@ -384,25 +396,19 @@
       filter: blur(0);
     }
 
-    .medi-features-head.reveal{ transition-delay: .05s; }
-    .feature-row.reveal{ transition-delay: .06s; }
-    .feature-row .feature-title.reveal{ transition-delay: .10s; }
-    .feature-row p.reveal{ transition-delay: .14s; }
-    .feature-row ul.reveal{ transition-delay: .18s; }
-
-    @keyframes glowMove{
-      0%,100%{ transform: translateX(-18%); }
-      50%{ transform: translateX(8%); }
-    }
-
+    /* Responsive */
     @media (max-width: 900px){
       .feature-row, .feature-row.invert{
         grid-template-columns: 1fr;
         gap: 14px;
       }
       .feature-row.invert .feature-media,
-      .feature-row.invert .feature-copy{ order: initial; }
-      .feature-card{ width: min(520px, 100%); }
+      .feature-row.invert .feature-copy{
+        order: initial;
+      }
+      .feature-card{
+        width: min(520px, 100%);
+      }
       .reveal{ filter: blur(2px); transform: translateY(18px); }
     }
   </style>
@@ -410,222 +416,260 @@
 
 <body>
 
-<header>
-  <div class="header-inner">
-    <img
-      src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/nexus_icon.png"
-      class="logo"
-      alt="Nexus Ecosystem Logo"
-    />
+  <!-- ================= HEADER ================= -->
+  <header>
+    <div class="header-inner">
+      <img
+        src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/nexus_icon.png"
+        class="logo"
+        alt="Nexus Ecosystem Logo"
+      />
 
-    <nav id="nav">
-      <div class="pill" id="pill"></div>
-      <a href="/medi/" data-key="medi">Medi</a>
-      <a href="/soporte/" data-key="soporte">Soporte</a>
-      <a href="/contacto/" data-key="contacto">Contacto</a>
-    </nav>
+      <nav id="nav">
+        <div class="pill" id="pill"></div>
+        <!-- Ajusta si ya tienes soporte/contacto en otros html -->
+        <a href="index.html" data-key="medi">Medi</a>
+        <a href="soporte.html" data-key="soporte">Soporte</a>
+        <a href="contacto.html" data-key="contacto">Contacto</a>
+      </nav>
 
-    <div></div>
-  </div>
-</header>
+      <div></div>
+    </div>
+  </header>
 
-<section class="medi-hero">
-  <div class="medi-hero-inner">
-    <div class="medi-hero-content">
-      <div class="medi-logo-wrapper">
-        <img
-          src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_logo.png"
-          alt="Medi App Logo"
-          class="medi-logo"
-        />
-      </div>
-
-      <h1>Organiza tus medicamentos sin complicaciones</h1>
-
-      <p>
-        Medi te ayuda a llevar el control de tu inventario, recordatorios y recetas médicas en un solo lugar.
-        Mantén tu rutina al día, evita olvidos y consulta tu información cuando la necesites.
-      </p>
-
-      <div class="store-badges">
-        <a class="badge" href="#" aria-label="Descargar en App Store">
+  <!-- ================= HERO ================= -->
+  <section class="medi-hero">
+    <div class="medi-hero-inner">
+      <div class="medi-hero-content reveal">
+        <div class="medi-logo-wrapper reveal">
           <img
-            src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-            alt="Descargar en App Store"
+            src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_logo.png"
+            alt="Medi App Logo"
+            class="medi-logo"
           />
-        </a>
+        </div>
 
-        <a class="badge" href="#" aria-label="Descargar en Google Play">
-          <img
-            src="https://play.google.com/intl/en_us/badges/static/images/badges/es_badge_web_generic.png"
-            alt="Descargar en Google Play"
-          />
-        </a>
+        <h1 class="reveal">Organiza tus medicamentos sin complicaciones</h1>
+
+        <p class="reveal">
+          Medi te ayuda a llevar el control de tu inventario, recordatorios y recetas médicas en un solo lugar.
+          Mantén tu rutina al día, evita olvidos y consulta tu información cuando la necesites.
+        </p>
+
+        <div class="store-badges reveal">
+          <a class="badge" href="#" aria-label="Descargar en App Store">
+            <img
+              src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+              alt="Descargar en App Store"
+            />
+          </a>
+
+          <a class="badge" href="#" aria-label="Descargar en Google Play">
+            <img
+              src="https://play.google.com/intl/en_us/badges/static/images/badges/es_badge_web_generic.png"
+              alt="Descargar en Google Play"
+            />
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="medi-features" id="medi-features">
-  <div class="medi-features-inner">
-    <header class="medi-features-head reveal">
-      <h2>Todo tu control de salud, en un solo lugar</h2>
-      <p>
-        Con <strong>Medi</strong> dejas de improvisar. Lleva tus medicamentos, recordatorios e inventario con orden real,
-        para que no dependas de la memoria ni de notas sueltas. En minutos lo tienes listo y, cada día, Medi te ayuda a
-        mantenerte al día sin esfuerzo.
-      </p>
-    </header>
+  <!-- ================= FEATURES ================= -->
+  <section class="medi-features" id="medi-features">
+    <div class="medi-features-inner">
 
-    <div class="feature-grid">
-      <article class="feature-row reveal">
-        <div class="feature-media">
-          <div class="feature-card">
-            <img src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_1.png" alt="Vista de Medi - Recordatorios" loading="lazy"/>
-          </div>
-        </div>
-        <div class="feature-copy">
-          <div class="feature-title reveal">
-            <span class="feature-icon" aria-hidden="true">⏰</span>
-            <h3>Recordatorios claros, sin estrés</h3>
-          </div>
-          <p class="reveal">
-            Configura tus tomas y consulta tus próximos recordatorios de forma visual.
-            <strong>Menos olvidos</strong>, más constancia. Ideal si llevas tratamientos, vitaminas o varias medicinas al día.
-          </p>
-          <ul class="reveal">
-            <li>Te ayuda a mantener tu rutina diaria.</li>
-            <li>Reduce confusiones entre tomas y horarios.</li>
-            <li>Interfaz limpia y directa.</li>
-          </ul>
-        </div>
-      </article>
+      <header class="medi-features-head">
+        <h2 class="reveal">Todo tu control de salud, en un solo lugar</h2>
+        <p class="reveal">
+          Con <strong>Medi</strong> dejas de improvisar. Lleva tus medicamentos, recordatorios e inventario con orden real,
+          para que no dependas de la memoria ni de notas sueltas. En minutos lo tienes listo y, cada día, Medi te ayuda a
+          mantenerte al día sin esfuerzo.
+        </p>
+      </header>
 
-      <article class="feature-row invert reveal">
-        <div class="feature-media">
-          <div class="feature-card">
-            <img src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_2.png" alt="Vista de Medi - Inventario" loading="lazy"/>
-          </div>
-        </div>
-        <div class="feature-copy">
-          <div class="feature-title reveal">
-            <span class="feature-icon" aria-hidden="true">📦</span>
-            <h3>Inventario inteligente</h3>
-          </div>
-          <p class="reveal">
-            Ten control de lo que tienes, lo que te falta y lo que necesitas reponer.
-            Medi convierte tu lista en un <strong>sistema</strong> para que compres a tiempo y evites quedarte sin tu medicamento.
-          </p>
-          <ul class="reveal">
-            <li>Organiza por medicamentos activos.</li>
-            <li>Consulta tu información cuando la necesites.</li>
-            <li>Todo en un solo lugar, sin complicaciones.</li>
-          </ul>
-        </div>
-      </article>
+      <div class="feature-grid">
 
-      <article class="feature-row reveal">
-        <div class="feature-media">
-          <div class="feature-card">
-            <img src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_3.png" alt="Vista de Medi - Detalles" loading="lazy"/>
+        <article class="feature-row">
+          <div class="feature-media reveal">
+            <div class="feature-card">
+              <img
+                src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_1.png"
+                alt="Vista de Medi - Recordatorios"
+                loading="lazy"
+              />
+            </div>
           </div>
-        </div>
-        <div class="feature-copy">
-          <div class="feature-title reveal">
-            <span class="feature-icon" aria-hidden="true">🗂️</span>
-            <h3>Información ordenada</h3>
-          </div>
-          <p class="reveal">
-            Guarda detalles útiles y consulta tu información cuando lo necesites.
-            Perfecto para quienes quieren claridad y <strong>seguir un control real</strong> sin perder tiempo.
-          </p>
-          <ul class="reveal">
-            <li>Acceso rápido a lo importante.</li>
-            <li>Diseño enfocado en legibilidad.</li>
-            <li>Te ayuda a tomar mejores decisiones.</li>
-          </ul>
-        </div>
-      </article>
 
-      <article class="feature-row invert reveal">
-        <div class="feature-media">
-          <div class="feature-card">
-            <img src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_4.png" alt="Vista de Medi - Control diario" loading="lazy"/>
+          <div class="feature-copy">
+            <div class="feature-title reveal">
+              <span class="feature-icon" aria-hidden="true">⏰</span>
+              <h3>Recordatorios claros, sin estrés</h3>
+            </div>
+
+            <p class="reveal">
+              Configura tus tomas y consulta tus próximos recordatorios de forma visual.
+              <strong>Menos olvidos</strong>, más constancia. Ideal si llevas tratamientos, vitaminas o varias medicinas al día.
+            </p>
+
+            <ul class="reveal">
+              <li>Te ayuda a mantener tu rutina diaria.</li>
+              <li>Reduce confusiones entre tomas y horarios.</li>
+              <li>Interfaz limpia y directa.</li>
+            </ul>
           </div>
-        </div>
-        <div class="feature-copy">
-          <div class="feature-title reveal">
-            <span class="feature-icon" aria-hidden="true">✅</span>
-            <h3>Hecho para usarlo diario</h3>
+        </article>
+
+        <article class="feature-row invert">
+          <div class="feature-media reveal">
+            <div class="feature-card">
+              <img
+                src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_2.png"
+                alt="Vista de Medi - Inventario"
+                loading="lazy"
+              />
+            </div>
           </div>
-          <p class="reveal">
-            Medi está pensado para sentirse rápido y simple. Entras, revisas, registras y sigues tu día.
-            Es el tipo de app que <strong>sí se mantiene</strong> porque no estorba: ayuda.
-          </p>
-          <ul class="reveal">
-            <li>Flujo rápido y natural.</li>
-            <li>Se adapta a rutinas reales.</li>
-            <li>Enfoque en facilidad y constancia.</li>
-          </ul>
-        </div>
-      </article>
+
+          <div class="feature-copy">
+            <div class="feature-title reveal">
+              <span class="feature-icon" aria-hidden="true">📦</span>
+              <h3>Inventario inteligente</h3>
+            </div>
+
+            <p class="reveal">
+              Ten control de lo que tienes, lo que te falta y lo que necesitas reponer.
+              Medi convierte tu lista en un <strong>sistema</strong> para que compres a tiempo y evites quedarte sin tu medicamento.
+            </p>
+
+            <ul class="reveal">
+              <li>Organiza por medicamentos activos.</li>
+              <li>Consulta tu información cuando la necesites.</li>
+              <li>Todo en un solo lugar, sin complicaciones.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="feature-row">
+          <div class="feature-media reveal">
+            <div class="feature-card">
+              <img
+                src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_3.png"
+                alt="Vista de Medi - Detalles"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <div class="feature-copy">
+            <div class="feature-title reveal">
+              <span class="feature-icon" aria-hidden="true">🗂️</span>
+              <h3>Información ordenada</h3>
+            </div>
+
+            <p class="reveal">
+              Guarda detalles útiles y consulta tu información cuando lo necesites.
+              Perfecto para quienes quieren claridad y <strong>seguir un control real</strong> sin perder tiempo.
+            </p>
+
+            <ul class="reveal">
+              <li>Acceso rápido a lo importante.</li>
+              <li>Diseño enfocado en legibilidad.</li>
+              <li>Te ayuda a tomar mejores decisiones.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="feature-row invert">
+          <div class="feature-media reveal">
+            <div class="feature-card">
+              <img
+                src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_4.png"
+                alt="Vista de Medi - Control diario"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <div class="feature-copy">
+            <div class="feature-title reveal">
+              <span class="feature-icon" aria-hidden="true">✅</span>
+              <h3>Hecho para usarlo diario</h3>
+            </div>
+
+            <p class="reveal">
+              Medi está pensado para sentirse rápido y simple. Entras, revisas, registras y sigues tu día.
+              Es el tipo de app que <strong>sí se mantiene</strong> porque no estorba: ayuda.
+            </p>
+
+            <ul class="reveal">
+              <li>Flujo rápido y natural.</li>
+              <li>Se adapta a rutinas reales.</li>
+              <li>Enfoque en facilidad y constancia.</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<script>
-  // Pill del menú (correcto)
-  (function(){
-    const nav = document.getElementById("nav");
-    const pill = document.getElementById("pill");
-    const links = Array.from(nav.querySelectorAll("a"));
-    const path = (location.pathname || "/").toLowerCase();
+  <script>
+    // ===== PILL CHIP =====
+    (function(){
+      const nav = document.getElementById("nav");
+      const pill = document.getElementById("pill");
+      const links = Array.from(nav.querySelectorAll("a"));
+      const path = (location.pathname || "").toLowerCase();
 
-    function activeKey(){
-      if(path.includes("soporte")) return "soporte";
-      if(path.includes("contacto")) return "contacto";
-      return "medi";
-    }
+      function activeKey(){
+        if(path.includes("soporte")) return "soporte";
+        if(path.includes("contacto")) return "contacto";
+        return "medi";
+      }
 
-    function movePill(key){
-      links.forEach(a => a.classList.toggle("active", a.dataset.key === key));
-      const active = links.find(a => a.dataset.key === key) || links[0];
+      function movePill(key){
+        links.forEach(a => a.classList.toggle("active", a.dataset.key === key));
+        const active = links.find(a => a.dataset.key === key) || links[0];
 
-      const navRect = nav.getBoundingClientRect();
-      const aRect = active.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        const aRect = active.getBoundingClientRect();
 
-      pill.style.width = aRect.width + "px";
-      pill.style.transform = `translateX(${aRect.left - navRect.left}px)`;
-    }
+        pill.style.width = aRect.width + "px";
+        pill.style.transform = `translateX(${aRect.left - navRect.left}px)`;
+      }
 
-    window.addEventListener("load", ()=> movePill(activeKey()));
-    window.addEventListener("resize", ()=>{
-      const current = links.find(a => a.classList.contains("active")) || links[0];
-      movePill(current.dataset.key);
-    });
+      // ✅ espera a que todo esté layout-ready
+      function init(){
+        movePill(activeKey());
+        requestAnimationFrame(()=>movePill(activeKey()));
+        setTimeout(()=>movePill(activeKey()), 120);
+      }
 
-    links.forEach(a=>{
-      a.addEventListener("click", ()=>{
-        movePill(a.dataset.key);
+      window.addEventListener("load", init);
+      window.addEventListener("resize", ()=>{
+        const current = links.find(a=>a.classList.contains("active")) || links[0];
+        movePill(current.dataset.key);
       });
-    });
-  })();
+    })();
 
-  // Reveal on scroll
-  (function(){
-    const els = document.querySelectorAll(".reveal");
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          e.target.classList.add("is-visible");
-          io.unobserve(e.target);
-        }
+    // ===== REVEAL MEDIO (TODOS LOS TEXTOS) =====
+    (function(){
+      const els = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        });
+      }, {
+        threshold: 0.18,
+        rootMargin: "0px 0px -10% 0px"
       });
-    }, { threshold: 0.22, rootMargin: "0px 0px -12% 0px" });
-
-    els.forEach(el=>io.observe(el));
-  })();
-</script>
+      els.forEach(el=>io.observe(el));
+    })();
+  </script>
 
 </body>
 </html>
