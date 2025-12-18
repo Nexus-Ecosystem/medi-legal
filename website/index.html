@@ -36,7 +36,6 @@
 
     *{ box-sizing:border-box; }
 
-    /* ✅ IMPORTANTE: evitar scroll interno */
     html, body{
       margin:0;
       padding:0;
@@ -51,7 +50,7 @@
       color:#1F2937;
     }
 
-    /* ================= HEADER (ÚNICO FIXO) ================= */
+    /* ================= HEADER ================= */
     header{
       background: var(--header-bg);
       padding: 20px 24px;
@@ -131,9 +130,7 @@
         gap: 14px;
         justify-items:center;
       }
-      .logo{
-        justify-self:center;
-      }
+      .logo{ justify-self:center; }
     }
 
     /* ================= HERO MEDI ================= */
@@ -212,9 +209,7 @@
       display:block;
     }
 
-    .badge:nth-child(2) img{
-      height: 54px;
-    }
+    .badge:nth-child(2) img{ height: 54px; }
 
     /* ================= FEATURES ================= */
     .medi-features{
@@ -334,7 +329,7 @@
       font-size: 16px;
     }
 
-    /* ✅ ÚNICA ANIMACIÓN: fade medio (texto + imagen) */
+    /* ✅ ÚNICA ANIMACIÓN: fade medio */
     .reveal{
       opacity: 0;
       transform: translateY(14px);
@@ -358,6 +353,187 @@
       .feature-card{
         width: min(520px, 100%);
       }
+    }
+
+    /* ================== CAPABILITIES CAROUSEL ================== */
+    .medi-capabilities{
+      background:#fff;
+      padding: 120px 0 120px;
+      overflow: hidden;
+    }
+
+    .medi-capabilities-header{
+      max-width: 900px;
+      margin: 0 auto 60px;
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .medi-capabilities-header h2{
+      font-size: 38px;
+      font-weight: 900;
+      color: #081C3A;
+      margin-bottom: 14px;
+    }
+
+    .medi-capabilities-header p{
+      font-size: 17px;
+      line-height: 1.75;
+      color: rgba(8,28,58,.75);
+    }
+
+    .medi-carousel-wrapper{ position: relative; }
+
+    .medi-carousel{
+      --side: 32px;
+      --gap: 24px;
+
+      display: flex;
+      gap: var(--gap);
+      padding: 20px var(--side);
+
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+
+      will-change: transform;
+    }
+
+    .medi-card{
+      width: calc((100% - (2 * var(--side)) - (2 * var(--gap))) / 3);
+      min-height: 320px;
+
+      background: #FFFFFF;
+      border-radius: 20px;
+      padding: 28px 26px 30px;
+      box-shadow: 0 20px 60px rgba(8,28,58,0.08);
+      border: 1px solid rgba(8,28,58,0.04);
+      flex-shrink: 0;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .medi-card h3{
+      margin: 18px 0 10px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #081C3A;
+    }
+
+    .medi-card p{
+      font-size: 15.5px;
+      line-height: 1.7;
+      color: rgba(8,28,58,.78);
+      margin: 0;
+    }
+
+    .medi-icon{
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #EEF3FF, #F7FAFF);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+
+    .medi-icon svg{
+      width: 22px;
+      height: 22px;
+      stroke: #0A3DFF;
+    }
+
+    @media (max-width: 980px){
+      .medi-card{
+        width: calc((100% - (2 * var(--side)) - (1 * var(--gap))) / 2);
+        min-height: 320px;
+      }
+    }
+
+    @media (max-width: 640px){
+      .medi-carousel{
+        --side: 18px;
+        --gap: 16px;
+        padding: 18px var(--side);
+      }
+      .medi-card{
+        width: calc(100% - (2 * var(--side)));
+        min-height: 300px;
+      }
+    }
+
+    /* ================== CTA (INVERTIDO COMO HERO) ================== */
+    /* ✅ Pediste: empezar blanco y terminar azul (como el inicio pero invertido) */
+    .medi-cta{
+      background: linear-gradient(
+        180deg,
+        #FFFFFF 0%,
+        rgba(159,212,255,0.30) 45%,
+        rgba(10,61,255,0.22) 72%,
+        rgba(10,61,255,0.40) 100%
+      );
+      padding: 120px 24px;
+    }
+
+    .medi-cta-inner{
+      max-width: 920px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.92);
+      border-radius: 28px;
+      padding: 64px 56px 56px;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(10,61,255,0.14);
+      border: 1px solid rgba(10,61,255,0.10);
+      backdrop-filter: blur(10px) saturate(140%);
+      -webkit-backdrop-filter: blur(10px) saturate(140%);
+    }
+
+    .medi-cta-inner h2{
+      font-size: 40px;
+      font-weight: 900;
+      color: #081C3A;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .medi-cta-main{
+      font-size: 18px;
+      line-height: 1.75;
+      color: rgba(8,28,58,0.85);
+      margin-bottom: 18px;
+    }
+
+    .medi-cta-secondary{
+      font-size: 16.5px;
+      line-height: 1.8;
+      color: rgba(8,28,58,0.72);
+      margin-bottom: 36px;
+    }
+
+    .medi-cta-badges{
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .medi-cta-badges img{ height: 46px; }
+    .medi-cta-badges a:last-child img{ height: 56px; }
+
+    .medi-cta-footnote{
+      font-size: 14px;
+      color: rgba(8,28,58,0.55);
+    }
+
+    @media (max-width: 700px){
+      .medi-cta-inner{ padding: 48px 24px; }
+      .medi-cta-inner h2{ font-size: 32px; }
+      .medi-cta-main{ font-size: 17px; }
+      .medi-cta-secondary{ font-size: 15.5px; }
     }
   </style>
 </head>
@@ -425,7 +601,6 @@
   <!-- ================= FEATURES ================= -->
   <section class="medi-features" id="medi-features">
     <div class="medi-features-inner">
-
       <header class="medi-features-head">
         <h2 class="reveal">Todo tu control de salud, en un solo lugar</h2>
         <p class="reveal">
@@ -562,319 +737,141 @@
   </section>
 
   <!-- ===== MEDI CAPABILITIES CAROUSEL ===== -->
-<section class="medi-capabilities">
-  <div class="medi-capabilities-header">
-    <h2>Lo que puedes hacer con Medi</h2>
-    <p>
-      Medi es tu sistema personal para mantener el control de tu salud sin improvisar.
-      Diseñado para acompañarte todos los días con claridad, orden y confianza.
-    </p>
-  </div>
-
-  <div class="medi-carousel-wrapper">
-    <div class="medi-carousel" id="mediCarousel">
-
-      <!-- Card 1 -->
-      <article class="medi-card">
-        <div class="medi-icon">
-          <!-- reloj -->
-          <svg viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="9" stroke-width="1.8"/>
-            <path d="M12 7v5l3 2" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>Recordatorios precisos</h3>
-        <p>
-          Programa tomas por horario y mantén tus tratamientos bajo control,
-          incluso cuando sigues rutinas complejas o múltiples medicamentos.
-        </p>
-      </article>
-
-      <!-- Card 2 -->
-      <article class="medi-card">
-        <div class="medi-icon">
-          <!-- caja -->
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M4 7h16v10H4z" stroke-width="1.8"/>
-            <path d="M4 7l8-4 8 4" stroke-width="1.8"/>
-          </svg>
-        </div>
-        <h3>Inventario inteligente</h3>
-        <p>
-          Visualiza lo que tienes, lo que falta y lo que necesitas reponer,
-          evitando interrupciones en tu tratamiento.
-        </p>
-      </article>
-
-      <!-- Card 3 -->
-      <article class="medi-card">
-        <div class="medi-icon">
-          <!-- lista -->
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M8 6h12M8 12h12M8 18h12" stroke-width="1.8"/>
-            <circle cx="4" cy="6" r="1"/>
-            <circle cx="4" cy="12" r="1"/>
-            <circle cx="4" cy="18" r="1"/>
-          </svg>
-        </div>
-        <h3>Información centralizada</h3>
-        <p>
-          Toda tu información importante en un solo lugar,
-          sin notas sueltas ni búsquedas innecesarias.
-        </p>
-      </article>
-
-      <!-- Card 4 -->
-      <article class="medi-card">
-        <div class="medi-icon">
-          <!-- check -->
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M5 13l4 4L19 7" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>Uso diario sin fricción</h3>
-        <p>
-          Una experiencia rápida, clara y enfocada en lo esencial,
-          pensada para usarse todos los días sin estorbar.
-        </p>
-      </article>
-
+  <section class="medi-capabilities">
+    <div class="medi-capabilities-header">
+      <h2>Lo que puedes hacer con Medi</h2>
+      <p>
+        Medi es tu sistema personal para mantener el control de tu salud sin improvisar.
+        Diseñado para acompañarte todos los días con claridad, orden y confianza.
+      </p>
     </div>
-  </div>
-</section>
 
-<style>
-/* ===== SECTION ===== */
-.medi-capabilities{
-  background:#fff;
-  padding: 120px 0 120px; /* más arriba y abajo */
-  font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow: hidden;
-}
+    <div class="medi-carousel-wrapper">
+      <div class="medi-carousel" id="mediCarousel">
 
-.medi-capabilities-header{
-  max-width: 900px;
-  margin: 0 auto 60px;
-  text-align: center;
-  padding: 0 24px;
-}
+        <article class="medi-card">
+          <div class="medi-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="9" stroke-width="1.8"/>
+              <path d="M12 7v5l3 2" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Recordatorios precisos</h3>
+          <p>
+            Programa tomas por horario y mantén tus tratamientos bajo control,
+            incluso cuando sigues rutinas complejas o múltiples medicamentos.
+          </p>
+        </article>
 
-.medi-capabilities-header h2{
-  font-size: 38px;
-  font-weight: 900;
-  color: #081C3A;
-  margin-bottom: 14px;
-}
+        <article class="medi-card">
+          <div class="medi-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 7h16v10H4z" stroke-width="1.8"/>
+              <path d="M4 7l8-4 8 4" stroke-width="1.8"/>
+            </svg>
+          </div>
+          <h3>Inventario inteligente</h3>
+          <p>
+            Visualiza lo que tienes, lo que falta y lo que necesitas reponer,
+            evitando interrupciones en tu tratamiento.
+          </p>
+        </article>
 
-.medi-capabilities-header p{
-  font-size: 17px;
-  line-height: 1.75;
-  color: rgba(8,28,58,.75);
-}
+        <article class="medi-card">
+          <div class="medi-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M8 6h12M8 12h12M8 18h12" stroke-width="1.8"/>
+              <circle cx="4" cy="6" r="1"/>
+              <circle cx="4" cy="12" r="1"/>
+              <circle cx="4" cy="18" r="1"/>
+            </svg>
+          </div>
+          <h3>Información centralizada</h3>
+          <p>
+            Toda tu información importante en un solo lugar,
+            sin notas sueltas ni búsquedas innecesarias.
+          </p>
+        </article>
 
-/* ===== CAROUSEL ===== */
-.medi-carousel-wrapper{
-  position: relative;
-}
+        <article class="medi-card">
+          <div class="medi-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M5 13l4 4L19 7" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Uso diario sin fricción</h3>
+          <p>
+            Una experiencia rápida, clara y enfocada en lo esencial,
+            pensada para usarse todos los días sin estorbar.
+          </p>
+        </article>
 
-.medi-carousel{
-  display: flex;
-  gap: 24px;
-  padding: 20px 32px;
-  width: max-content;
-  will-change: transform;
-}
+      </div>
+    </div>
+  </section>
 
-.medi-card{
-  width: 320px;
-  background: #FFFFFF;
-  border-radius: 20px;
-  padding: 28px 26px 30px;
-  box-shadow: 0 20px 60px rgba(8,28,58,0.08);
-  border: 1px solid rgba(8,28,58,0.04);
-  flex-shrink: 0;
-}
-
-.medi-card h3{
-  margin: 18px 0 10px;
-  font-size: 18px;
-  font-weight: 700;
-  color: #081C3A;
-}
-
-.medi-card p{
-  font-size: 15.5px;
-  line-height: 1.7;
-  color: rgba(8,28,58,.78);
-}
-
-/* ===== ICON ===== */
-.medi-icon{
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #EEF3FF, #F7FAFF);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.medi-icon svg{
-  width: 22px;
-  height: 22px;
-  stroke: #0A3DFF;
-}
-</style>
-
+  <!-- ================= CTA ================= -->
   <section class="medi-cta">
-  <div class="medi-cta-inner">
-    <h2>Empieza a tomar el control real de tu salud hoy</h2>
+    <div class="medi-cta-inner">
+      <h2>Empieza a tomar el control real de tu salud hoy</h2>
 
-    <p class="medi-cta-main">
-      Con <strong>Medi</strong> centralizas tus medicamentos, recordatorios e información médica
-      en un solo lugar, sin improvisar ni depender de la memoria.
-    </p>
+      <p class="medi-cta-main">
+        Con <strong>Medi</strong> centralizas tus medicamentos, recordatorios e información médica
+        en un solo lugar, sin improvisar ni depender de la memoria.
+      </p>
 
-    <p class="medi-cta-secondary">
-      Medi te acompaña día a día para que mantengas tus tratamientos bajo control,
-      evites olvidos y tomes mejores decisiones sobre tu salud con información clara,
-      organizada y siempre disponible cuando la necesites.
-    </p>
+      <p class="medi-cta-secondary">
+        Medi te acompaña día a día para que mantengas tus tratamientos bajo control,
+        evites olvidos y tomes mejores decisiones sobre tu salud con información clara,
+        organizada y siempre disponible cuando la necesites.
+      </p>
 
-    <div class="medi-cta-badges">
-      <a href="#" aria-label="Descargar Medi en App Store">
-        <img
-          src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-          alt="Descargar en App Store"
-        />
-      </a>
+      <div class="medi-cta-badges">
+        <a href="#" aria-label="Descargar Medi en App Store">
+          <img
+            src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+            alt="Descargar en App Store"
+          />
+        </a>
 
-      <a href="#" aria-label="Descargar Medi en Google Play">
-        <img
-          src="https://play.google.com/intl/en_us/badges/static/images/badges/es_badge_web_generic.png"
-          alt="Descargar en Google Play"
-        />
-      </a>
+        <a href="#" aria-label="Descargar Medi en Google Play">
+          <img
+            src="https://play.google.com/intl/en_us/badges/static/images/badges/es_badge_web_generic.png"
+            alt="Descargar en Google Play"
+          />
+        </a>
+      </div>
+
+      <span class="medi-cta-footnote">
+        Disponible para iOS y Android · Diseñado para rutinas reales
+      </span>
     </div>
+  </section>
 
-    <span class="medi-cta-footnote">
-      Disponible para iOS y Android · Diseñado para rutinas reales
-    </span>
-  </div>
-</section>
+  <script>
+    /* ===== AUTO CAROUSEL (PING-PONG, LENTO) ===== */
+    (function(){
+      const carousel = document.getElementById('mediCarousel');
+      let direction = 1;
+      let position = 0;
+      const speed = 0.25;
 
-<style>
-/* ===== MEDI CTA ===== */
-.medi-cta{
-  background: linear-gradient(
-    180deg,
-    rgba(10,61,255,0.10) 0%,
-    rgba(159,212,255,0.18) 100%
-  );
-  padding: 120px 24px;
-  font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
+      function animate(){
+        const wrapperWidth = carousel.parentElement.getBoundingClientRect().width;
+        const maxScroll = Math.max(0, carousel.scrollWidth - wrapperWidth);
 
-.medi-cta-inner{
-  max-width: 920px;
-  margin: 0 auto;
-  background: #FFFFFF;
-  border-radius: 28px;
-  padding: 64px 56px 56px;
-  text-align: center;
-  box-shadow: 0 30px 80px rgba(10,61,255,0.10);
-}
+        position += speed * direction;
 
-.medi-cta-inner h2{
-  font-size: 40px;
-  font-weight: 900;
-  color: #081C3A;
-  margin-bottom: 20px;
-  letter-spacing: -0.02em;
-}
+        if(position >= maxScroll) direction = -1;
+        if(position <= 0) direction = 1;
 
-.medi-cta-main{
-  font-size: 18px;
-  line-height: 1.75;
-  color: rgba(8,28,58,0.85);
-  margin-bottom: 18px;
-}
+        carousel.style.transform = `translateX(${-position}px)`;
+        requestAnimationFrame(animate);
+      }
 
-.medi-cta-secondary{
-  font-size: 16.5px;
-  line-height: 1.8;
-  color: rgba(8,28,58,0.72);
-  margin-bottom: 36px;
-}
-
-.medi-cta-badges{
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 22px;
-}
-
-.medi-cta-badges img{
-  height: 46px;
-}
-
-.medi-cta-badges a:last-child img{
-  height: 56px;
-}
-
-.medi-cta-footnote{
-  font-size: 14px;
-  color: rgba(8,28,58,0.55);
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 700px){
-  .medi-cta-inner{
-    padding: 48px 24px;
-  }
-
-  .medi-cta-inner h2{
-    font-size: 32px;
-  }
-
-  .medi-cta-main{
-    font-size: 17px;
-  }
-
-  .medi-cta-secondary{
-    font-size: 15.5px;
-  }
-}
-</style>
-
-<script>
-/* ===== AUTO CAROUSEL (PING-PONG, LENTO) ===== */
-(function(){
-  const carousel = document.getElementById('mediCarousel');
-  let direction = 1;
-  let position = 0;
-  const speed = 0.25; // MÁS LENTO
-
-  function animate(){
-    const maxScroll = carousel.scrollWidth - window.innerWidth + 120;
-
-    position += speed * direction;
-
-    if(position >= maxScroll){
-      direction = -1;
-    }
-    if(position <= 0){
-      direction = 1;
-    }
-
-    carousel.style.transform = `translateX(${-position}px)`;
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-})();
-</script>
+      animate();
+    })();
+  </script>
 
   <script>
     // ===== PILL CHIP =====
@@ -914,7 +911,7 @@
       });
     })();
 
-    // ===== FADE MEDIO (única animación) =====
+    // ===== FADE MEDIO =====
     (function(){
       const els = document.querySelectorAll(".reveal");
       const io = new IntersectionObserver((entries)=>{
