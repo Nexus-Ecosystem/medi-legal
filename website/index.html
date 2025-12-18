@@ -1,1 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nexus Ecosystem</title>
 
+  <style>
+    :root{
+      --nexus-blue-dark:#0B3C5D;
+      --nexus-blue:#1F6AE1;
+      --nexus-blue-light:#6EC1FF;
+
+      --header-bg: linear-gradient(135deg, #EAF3FF, #F4FAFF);
+      --chip-bg: linear-gradient(90deg, rgba(31,106,225,.20), rgba(110,193,255,.25));
+      --chip-border: rgba(31,106,225,.30);
+      --text: #0B3C5D;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+      background:#fff;
+      color:#1F2937;
+    }
+
+    /* ================= HEADER ================= */
+    header{
+      background: var(--header-bg);
+      padding: 20px 24px;
+    }
+
+    .header-inner{
+      max-width: 1200px;
+      margin: 0 auto;
+      display:grid;
+      grid-template-columns: auto 1fr auto;
+      align-items:center;
+    }
+
+    /* Logo al inicio */
+    .logo{
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 14px rgba(11,60,93,.18));
+      justify-self: start;
+    }
+
+    /* ================= NAV ================= */
+    nav{
+      position: relative;
+      display:flex;
+      gap: 6px;
+      padding: 6px;
+      border-radius: 999px;
+      justify-self: center;
+    }
+
+    .pill{
+      position:absolute;
+      inset: 6px auto 6px 6px;
+      width: 0;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      border: 1px solid var(--chip-border);
+      transition: transform .32s ease, width .32s ease;
+      pointer-events:none;
+    }
+
+    nav a{
+      position: relative;
+      z-index:2;
+      text-decoration:none;
+      font-size:14px;
+      font-weight:700;
+      color: var(--text);
+      padding: 10px 18px;
+      border-radius:999px;
+      min-width:96px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition: color .15s ease, transform .15s ease;
+    }
+
+    nav a:hover{
+      transform: translateY(-1px);
+    }
+
+    nav a.active{
+      color: var(--nexus-blue-dark);
+    }
+
+    @media (max-width:700px){
+      .header-inner{
+        grid-template-columns: 1fr;
+        gap: 16px;
+        justify-items:center;
+      }
+      .logo{
+        justify-self:center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+
+    <!-- Logo Nexus al inicio -->
+    <img
+      src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/nexus_icon.png"
+      class="logo"
+      alt="Nexus Ecosystem Logo"
+    />
+
+    <!-- Navegación centrada -->
+    <nav id="nav">
+      <div class="pill" id="pill"></div>
+      <a href="/medi/" data-key="medi">Medi</a>
+      <a href="/soporte/" data-key="soporte">Soporte</a>
+      <a href="/contacto/" data-key="contacto">Contacto</a>
+    </nav>
+
+    <!-- Columna vacía para balance visual -->
+    <div></div>
+
+  </div>
+</header>
+
+<script>
+  (function(){
+    const nav = document.getElementById("nav");
+    const pill = document.getElementById("pill");
+    const links = Array.from(nav.querySelectorAll("a"));
+    const path = location.pathname.toLowerCase();
+
+    function activeKey(){
+      if(path.includes("soporte")) return "soporte";
+      if(path.includes("contacto")) return "contacto";
+      return "medi";
+    }
+
+    function movePill(key){
+      links.forEach(a => a.classList.toggle("active", a.dataset.key === key));
+      const active = links.find(a => a.dataset.key === key) || links[0];
+
+      const navRect = nav.getBoundingClientRect();
+      const aRect = active.getBoundingClientRect();
+
+      pill.style.width = aRect.width + "px";
+      pill.style.transform = `translateX(${aRect.left - navRect.left}px)`;
+    }
+
+    window.addEventListener("load",()=>movePill(activeKey()));
+    window.addEventListener("resize",()=>{
+      const current = links.find(a=>a.classList.contains("active")) || links[0];
+      movePill(current.dataset.key);
+    });
+  })();
+</script>
+
+</body>
+</html>
