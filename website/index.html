@@ -36,34 +36,42 @@
 
     *{ box-sizing:border-box; }
 
-html, body{
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; /* ok */
-}
+    html, body{
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      /* OJO: no pongas height/overflow raro aquí; rompe sticky en Safari */
+    }
 
     body{
-      margin:0;
       font-family:'Roboto', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       background:#fff;
       color:#1F2937;
     }
 
-header{
-  background: var(--header-bg);
-  padding: 20px 24px;
+    /* ✅ BLOQUEO: nada fuera del header puede ser sticky/fixed */
+    main, section, article, header + *, .medi-hero, .medi-features, .medi-features-head, .feature-row,
+    .medi-features-head *, .feature-copy *, .feature-media *{
+      position: static !important;
+      top: auto !important;
+    }
 
-  backdrop-filter: blur(14px) saturate(160%);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  background-color: rgba(255,255,255,0.55);
+    /* ================= HEADER (EL ÚNICO STICKY) ================= */
+    header{
+      background: var(--header-bg);
+      padding: 20px 24px;
 
-  border-bottom: 1px solid rgba(255,255,255,0.35);
-  box-shadow: 0 8px 24px rgba(11,60,93,0.12);
+      backdrop-filter: blur(14px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+      background-color: rgba(255,255,255,0.55);
 
-  position: sticky;
-  top: 0;
-  z-index: 9999; /* 🔒 más alto */
-}
+      border-bottom: 1px solid rgba(255,255,255,0.35);
+      box-shadow: 0 8px 24px rgba(11,60,93,0.12);
+
+      position: sticky !important; /* ✅ SOLO AQUÍ */
+      top: 0;
+      z-index: 9999;
+    }
 
     .header-inner{
       max-width: 1200px;
@@ -117,15 +125,11 @@ header{
       justify-content:center;
       transition: transform .15s ease;
       line-height: 1;
+      white-space: nowrap;
     }
 
-    nav a:hover{
-      transform: translateY(-1px);
-    }
-
-    nav a.active{
-      color: var(--nexus-blue-dark);
-    }
+    nav a:hover{ transform: translateY(-1px); }
+    nav a.active{ color: var(--nexus-blue-dark); }
 
     @media (max-width:700px){
       .header-inner{
@@ -133,9 +137,7 @@ header{
         gap: 14px;
         justify-items:center;
       }
-      .logo{
-        justify-self:center;
-      }
+      .logo{ justify-self:center; }
     }
 
     /* ================= HERO MEDI ================= */
@@ -157,9 +159,7 @@ header{
       text-align:center;
     }
 
-    .medi-hero-content{
-      max-width: 760px;
-    }
+    .medi-hero-content{ max-width: 760px; }
 
     .medi-logo-wrapper{
       display:flex;
@@ -168,7 +168,7 @@ header{
     }
 
     .medi-logo{
-      width: 122px; /* ✅ un poco más grande */
+      width: 122px;
       height: 122px;
       border-radius: 30px;
       box-shadow: 0 22px 48px rgba(10,61,255,.35);
@@ -220,17 +220,14 @@ header{
       width: auto;
       display:block;
     }
-
-    .badge:nth-child(2) img{
-      height: 54px;
-    }
+    .badge:nth-child(2) img{ height: 54px; }
 
     @keyframes floatLogo{
       0%,100%{ transform: translateY(0); }
       50%{ transform: translateY(-6px); }
     }
 
-    /* ================= FEATURES (NO STICKY) ================= */
+    /* ================= FEATURES ================= */
     .medi-features{
       background:#fff;
       padding: 40px 24px 60px;
@@ -241,9 +238,12 @@ header{
       margin: 0 auto;
     }
 
+    /* ✅ fuerza a NO sticky (por si algo global lo pisa) */
     .medi-features-head{
       text-align:center;
       margin-bottom: 18px;
+      position: static !important;
+      top: auto !important;
     }
 
     .medi-features-head h2{
@@ -278,9 +278,7 @@ header{
       padding: 8px 0;
     }
 
-    .feature-row.invert{
-      grid-template-columns: 1.05fr .95fr;
-    }
+    .feature-row.invert{ grid-template-columns: 1.05fr .95fr; }
     .feature-row.invert .feature-media{ order: 2; }
     .feature-row.invert .feature-copy{ order: 1; }
 
@@ -290,7 +288,7 @@ header{
     }
 
     .feature-card{
-      width: min(410px, 100%); /* ✅ un poco más chica */
+      width: min(410px, 100%);
       border-radius: 22px;
       background: #F7FAFF;
       box-shadow: 0 18px 50px rgba(10,61,255,.10);
@@ -346,13 +344,11 @@ header{
       flex: 0 0 auto;
     }
 
-    .feature-row:hover .feature-icon{
-      transform: translateY(-2px);
-    }
+    .feature-row:hover .feature-icon{ transform: translateY(-2px); }
 
     .feature-copy h3{
       margin: 0;
-      font-size: 24px; /* ✅ texto más grande */
+      font-size: 24px;
       color: #081C3A;
       font-weight: 900;
       letter-spacing: -0.01em;
@@ -363,7 +359,7 @@ header{
       margin: 0 0 12px;
       color: rgba(8,28,58,0.82);
       line-height: 1.9;
-      font-size: 17px; /* ✅ texto más grande */
+      font-size: 17px;
     }
 
     .feature-copy ul{
@@ -371,7 +367,7 @@ header{
       padding-left: 18px;
       color: rgba(8,28,58,0.78);
       line-height: 1.85;
-      font-size: 16px; /* ✅ texto más grande */
+      font-size: 16px;
     }
 
     @keyframes glowMove{
@@ -379,7 +375,7 @@ header{
       50%{ transform: translateX(8%); }
     }
 
-    /* ✅ Reveal “medio” */
+    /* Reveal */
     .reveal{
       opacity: 0;
       transform: translateY(22px);
@@ -396,7 +392,6 @@ header{
       filter: blur(0);
     }
 
-    /* Responsive */
     @media (max-width: 900px){
       .feature-row, .feature-row.invert{
         grid-template-columns: 1fr;
@@ -406,9 +401,7 @@ header{
       .feature-row.invert .feature-copy{
         order: initial;
       }
-      .feature-card{
-        width: min(520px, 100%);
-      }
+      .feature-card{ width: min(520px, 100%); }
       .reveal{ filter: blur(2px); transform: translateY(18px); }
     }
   </style>
@@ -416,7 +409,7 @@ header{
 
 <body>
 
-  <!-- ================= HEADER ================= -->
+  <!-- ================= HEADER (EL FIJO ES ESTE) ================= -->
   <header>
     <div class="header-inner">
       <img
@@ -427,7 +420,6 @@ header{
 
       <nav id="nav">
         <div class="pill" id="pill"></div>
-        <!-- Ajusta si ya tienes soporte/contacto en otros html -->
         <a href="index.html" data-key="medi">Medi</a>
         <a href="soporte.html" data-key="soporte">Soporte</a>
         <a href="contacto.html" data-key="contacto">Contacto</a>
@@ -437,182 +429,184 @@ header{
     </div>
   </header>
 
-  <!-- ================= HERO ================= -->
-  <section class="medi-hero">
-    <div class="medi-hero-inner">
-      <div class="medi-hero-content reveal">
-        <div class="medi-logo-wrapper reveal">
-          <img
-            src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_logo.png"
-            alt="Medi App Logo"
-            class="medi-logo"
-          />
-        </div>
-
-        <h1 class="reveal">Organiza tus medicamentos sin complicaciones</h1>
-
-        <p class="reveal">
-          Medi te ayuda a llevar el control de tu inventario, recordatorios y recetas médicas en un solo lugar.
-          Mantén tu rutina al día, evita olvidos y consulta tu información cuando la necesites.
-        </p>
-
-        <div class="store-badges reveal">
-          <a class="badge" href="#" aria-label="Descargar en App Store">
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="medi-hero">
+      <div class="medi-hero-inner">
+        <div class="medi-hero-content reveal">
+          <div class="medi-logo-wrapper reveal">
             <img
-              src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-              alt="Descargar en App Store"
+              src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_logo.png"
+              alt="Medi App Logo"
+              class="medi-logo"
             />
-          </a>
+          </div>
 
-          <a class="badge" href="#" aria-label="Descargar en Google Play">
-            <img
-              src="https://play.google.com/intl/en_us/badges/static/images/badges/es_badge_web_generic.png"
-              alt="Descargar en Google Play"
-            />
-          </a>
+          <h1 class="reveal">Organiza tus medicamentos sin complicaciones</h1>
+
+          <p class="reveal">
+            Medi te ayuda a llevar el control de tu inventario, recordatorios y recetas médicas en un solo lugar.
+            Mantén tu rutina al día, evita olvidos y consulta tu información cuando la necesites.
+          </p>
+
+          <div class="store-badges reveal">
+            <a class="badge" href="#" aria-label="Descargar en App Store">
+              <img
+                src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                alt="Descargar en App Store"
+              />
+            </a>
+
+            <a class="badge" href="#" aria-label="Descargar en Google Play">
+              <img
+                src="https://play.google.com/intl/en_us/badges/static/images/badges/es_badge_web_generic.png"
+                alt="Descargar en Google Play"
+              />
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ================= FEATURES ================= -->
-  <section class="medi-features" id="medi-features">
-    <div class="medi-features-inner">
+    <!-- ================= FEATURES ================= -->
+    <section class="medi-features" id="medi-features">
+      <div class="medi-features-inner">
 
-      <header class="medi-features-head">
-        <h2 class="reveal">Todo tu control de salud, en un solo lugar</h2>
-        <p class="reveal">
-          Con <strong>Medi</strong> dejas de improvisar. Lleva tus medicamentos, recordatorios e inventario con orden real,
-          para que no dependas de la memoria ni de notas sueltas. En minutos lo tienes listo y, cada día, Medi te ayuda a
-          mantenerte al día sin esfuerzo.
-        </p>
-      </header>
+        <header class="medi-features-head">
+          <h2 class="reveal">Todo tu control de salud, en un solo lugar</h2>
+          <p class="reveal">
+            Con <strong>Medi</strong> dejas de improvisar. Lleva tus medicamentos, recordatorios e inventario con orden real,
+            para que no dependas de la memoria ni de notas sueltas. En minutos lo tienes listo y, cada día, Medi te ayuda a
+            mantenerte al día sin esfuerzo.
+          </p>
+        </header>
 
-      <div class="feature-grid">
+        <div class="feature-grid">
 
-        <article class="feature-row">
-          <div class="feature-media reveal">
-            <div class="feature-card">
-              <img
-                src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_1.png"
-                alt="Vista de Medi - Recordatorios"
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-          <div class="feature-copy">
-            <div class="feature-title reveal">
-              <span class="feature-icon" aria-hidden="true">⏰</span>
-              <h3>Recordatorios claros, sin estrés</h3>
+          <article class="feature-row">
+            <div class="feature-media reveal">
+              <div class="feature-card">
+                <img
+                  src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_1.png"
+                  alt="Vista de Medi - Recordatorios"
+                  loading="lazy"
+                />
+              </div>
             </div>
 
-            <p class="reveal">
-              Configura tus tomas y consulta tus próximos recordatorios de forma visual.
-              <strong>Menos olvidos</strong>, más constancia. Ideal si llevas tratamientos, vitaminas o varias medicinas al día.
-            </p>
+            <div class="feature-copy">
+              <div class="feature-title reveal">
+                <span class="feature-icon" aria-hidden="true">⏰</span>
+                <h3>Recordatorios claros, sin estrés</h3>
+              </div>
 
-            <ul class="reveal">
-              <li>Te ayuda a mantener tu rutina diaria.</li>
-              <li>Reduce confusiones entre tomas y horarios.</li>
-              <li>Interfaz limpia y directa.</li>
-            </ul>
-          </div>
-        </article>
+              <p class="reveal">
+                Configura tus tomas y consulta tus próximos recordatorios de forma visual.
+                <strong>Menos olvidos</strong>, más constancia. Ideal si llevas tratamientos, vitaminas o varias medicinas al día.
+              </p>
 
-        <article class="feature-row invert">
-          <div class="feature-media reveal">
-            <div class="feature-card">
-              <img
-                src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_2.png"
-                alt="Vista de Medi - Inventario"
-                loading="lazy"
-              />
+              <ul class="reveal">
+                <li>Te ayuda a mantener tu rutina diaria.</li>
+                <li>Reduce confusiones entre tomas y horarios.</li>
+                <li>Interfaz limpia y directa.</li>
+              </ul>
             </div>
-          </div>
+          </article>
 
-          <div class="feature-copy">
-            <div class="feature-title reveal">
-              <span class="feature-icon" aria-hidden="true">📦</span>
-              <h3>Inventario inteligente</h3>
-            </div>
-
-            <p class="reveal">
-              Ten control de lo que tienes, lo que te falta y lo que necesitas reponer.
-              Medi convierte tu lista en un <strong>sistema</strong> para que compres a tiempo y evites quedarte sin tu medicamento.
-            </p>
-
-            <ul class="reveal">
-              <li>Organiza por medicamentos activos.</li>
-              <li>Consulta tu información cuando la necesites.</li>
-              <li>Todo en un solo lugar, sin complicaciones.</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="feature-row">
-          <div class="feature-media reveal">
-            <div class="feature-card">
-              <img
-                src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_3.png"
-                alt="Vista de Medi - Detalles"
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-          <div class="feature-copy">
-            <div class="feature-title reveal">
-              <span class="feature-icon" aria-hidden="true">🗂️</span>
-              <h3>Información ordenada</h3>
+          <article class="feature-row invert">
+            <div class="feature-media reveal">
+              <div class="feature-card">
+                <img
+                  src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_2.png"
+                  alt="Vista de Medi - Inventario"
+                  loading="lazy"
+                />
+              </div>
             </div>
 
-            <p class="reveal">
-              Guarda detalles útiles y consulta tu información cuando lo necesites.
-              Perfecto para quienes quieren claridad y <strong>seguir un control real</strong> sin perder tiempo.
-            </p>
+            <div class="feature-copy">
+              <div class="feature-title reveal">
+                <span class="feature-icon" aria-hidden="true">📦</span>
+                <h3>Inventario inteligente</h3>
+              </div>
 
-            <ul class="reveal">
-              <li>Acceso rápido a lo importante.</li>
-              <li>Diseño enfocado en legibilidad.</li>
-              <li>Te ayuda a tomar mejores decisiones.</li>
-            </ul>
-          </div>
-        </article>
+              <p class="reveal">
+                Ten control de lo que tienes, lo que te falta y lo que necesitas reponer.
+                Medi convierte tu lista en un <strong>sistema</strong> para que compres a tiempo y evites quedarte sin tu medicamento.
+              </p>
 
-        <article class="feature-row invert">
-          <div class="feature-media reveal">
-            <div class="feature-card">
-              <img
-                src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_4.png"
-                alt="Vista de Medi - Control diario"
-                loading="lazy"
-              />
+              <ul class="reveal">
+                <li>Organiza por medicamentos activos.</li>
+                <li>Consulta tu información cuando la necesites.</li>
+                <li>Todo en un solo lugar, sin complicaciones.</li>
+              </ul>
             </div>
-          </div>
+          </article>
 
-          <div class="feature-copy">
-            <div class="feature-title reveal">
-              <span class="feature-icon" aria-hidden="true">✅</span>
-              <h3>Hecho para usarlo diario</h3>
+          <article class="feature-row">
+            <div class="feature-media reveal">
+              <div class="feature-card">
+                <img
+                  src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_3.png"
+                  alt="Vista de Medi - Detalles"
+                  loading="lazy"
+                />
+              </div>
             </div>
 
-            <p class="reveal">
-              Medi está pensado para sentirse rápido y simple. Entras, revisas, registras y sigues tu día.
-              Es el tipo de app que <strong>sí se mantiene</strong> porque no estorba: ayuda.
-            </p>
+            <div class="feature-copy">
+              <div class="feature-title reveal">
+                <span class="feature-icon" aria-hidden="true">🗂️</span>
+                <h3>Información ordenada</h3>
+              </div>
 
-            <ul class="reveal">
-              <li>Flujo rápido y natural.</li>
-              <li>Se adapta a rutinas reales.</li>
-              <li>Enfoque en facilidad y constancia.</li>
-            </ul>
-          </div>
-        </article>
+              <p class="reveal">
+                Guarda detalles útiles y consulta tu información cuando lo necesites.
+                Perfecto para quienes quieren claridad y <strong>seguir un control real</strong> sin perder tiempo.
+              </p>
 
+              <ul class="reveal">
+                <li>Acceso rápido a lo importante.</li>
+                <li>Diseño enfocado en legibilidad.</li>
+                <li>Te ayuda a tomar mejores decisiones.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="feature-row invert">
+            <div class="feature-media reveal">
+              <div class="feature-card">
+                <img
+                  src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/medi_web_4.png"
+                  alt="Vista de Medi - Control diario"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <div class="feature-copy">
+              <div class="feature-title reveal">
+                <span class="feature-icon" aria-hidden="true">✅</span>
+                <h3>Hecho para usarlo diario</h3>
+              </div>
+
+              <p class="reveal">
+                Medi está pensado para sentirse rápido y simple. Entras, revisas, registras y sigues tu día.
+                Es el tipo de app que <strong>sí se mantiene</strong> porque no estorba: ayuda.
+              </p>
+
+              <ul class="reveal">
+                <li>Flujo rápido y natural.</li>
+                <li>Se adapta a rutinas reales.</li>
+                <li>Enfoque en facilidad y constancia.</li>
+              </ul>
+            </div>
+          </article>
+
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <script>
     // ===== PILL CHIP =====
@@ -639,7 +633,6 @@ header{
         pill.style.transform = `translateX(${aRect.left - navRect.left}px)`;
       }
 
-      // ✅ espera a que todo esté layout-ready
       function init(){
         movePill(activeKey());
         requestAnimationFrame(()=>movePill(activeKey()));
@@ -653,7 +646,7 @@ header{
       });
     })();
 
-    // ===== REVEAL MEDIO (TODOS LOS TEXTOS) =====
+    // ===== REVEAL =====
     (function(){
       const els = document.querySelectorAll(".reveal");
       const io = new IntersectionObserver((entries)=>{
