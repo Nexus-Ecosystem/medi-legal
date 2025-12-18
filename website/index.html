@@ -691,7 +691,6 @@
 
       <nav id="nav">
         <div class="pill" id="pill"></div>
-        <!-- ✅ Medi recarga esta misma página -->
         <a href="./" data-key="medi">Medi</a>
         <a href="support.html" data-key="soporte">Soporte</a>
         <a href="contacto.html" data-key="contacto">Contacto</a>
@@ -752,7 +751,6 @@
       </header>
 
       <div class="feature-grid">
-
         <article class="feature-row">
           <div class="feature-media reveal">
             <div class="feature-card">
@@ -872,7 +870,6 @@
             </ul>
           </div>
         </article>
-
       </div>
     </div>
   </section>
@@ -1011,7 +1008,6 @@
         <div class="nx-footer__col">
           <h4 class="nx-footer__title">APPS</h4>
           <ul class="nx-footer__list">
-            <!-- ✅ Medi en footer también recarga la misma página -->
             <li><a class="nx-footer__link" href="./">Medi</a></li>
           </ul>
         </div>
@@ -1019,8 +1015,19 @@
         <div class="nx-footer__col">
           <h4 class="nx-footer__title">EMPRESA</h4>
           <ul class="nx-footer__list">
-            <li><a class="nx-footer__link" href="#terminos">Términos y condiciones</a></li>
-            <li><a class="nx-footer__link" href="#privacidad">Aviso de privacidad</a></li>
+            <!-- ✅ CORRECCIÓN: rutas reales a legal/es -->
+            <li>
+              <a class="nx-footer__link" data-legal="terms"
+                 href="../legal/es/terms.html" target="_blank" rel="noopener">
+                Términos y condiciones
+              </a>
+            </li>
+            <li>
+              <a class="nx-footer__link" data-legal="privacy"
+                 href="../legal/es/privacy-policy.html" target="_blank" rel="noopener">
+                Aviso de privacidad
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -1051,6 +1058,22 @@
   </script>
 
   <script>
+    // ✅ Auto-detectar idioma para legal (ES/EN/PT)
+    // Si no lo quieres, puedes borrar este script (los links ya funcionan en ES).
+    (function(){
+      const lang = (navigator.language || "es").toLowerCase();
+      const code = lang.startsWith("pt") ? "pt" : (lang.startsWith("en") ? "en" : "es");
+
+      document.querySelectorAll("[data-legal='terms']").forEach(a => {
+        a.setAttribute("href", `../legal/${code}/terms.html`);
+      });
+      document.querySelectorAll("[data-legal='privacy']").forEach(a => {
+        a.setAttribute("href", `../legal/${code}/privacy-policy.html`);
+      });
+    })();
+  </script>
+
+  <script>
     // ===== PILL CHIP =====
     (function(){
       const nav = document.getElementById("nav");
@@ -1059,7 +1082,8 @@
       const path = (location.pathname || "").toLowerCase();
 
       function activeKey(){
-        if(path.includes("soporte")) return "soporte";
+        // ✅ ojo: tu archivo se llama support.html
+        if(path.includes("support")) return "soporte";
         if(path.includes("contacto")) return "contacto";
         return "medi";
       }
@@ -1185,14 +1209,8 @@
         lastInteraction = Date.now();
       }
 
-      wrapper.addEventListener("pointerdown", (e)=>{
-        onDown(e, e.clientX);
-      });
-
-      wrapper.addEventListener("pointermove", (e)=>{
-        onMove(e.clientX);
-      });
-
+      wrapper.addEventListener("pointerdown", (e)=> onDown(e, e.clientX));
+      wrapper.addEventListener("pointermove", (e)=> onMove(e.clientX));
       wrapper.addEventListener("pointerup", onUp);
       wrapper.addEventListener("pointercancel", onUp);
       wrapper.addEventListener("pointerleave", ()=>{ if(isDragging) onUp(); });
@@ -1269,7 +1287,6 @@
 
         if((isHeaderMedi || isFooterMedi) && isSamePageTarget(href)){
           e.preventDefault();
-          // recarga real
           window.location.href = href || "./";
           window.location.reload();
         }
