@@ -373,20 +373,31 @@
       color: rgba(8,28,58,.75);
     }
 
-    .medi-carousel-wrapper{
-      position: relative;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 18px;
+.medi-carousel-wrapper{
+  position: relative;
 
-      /* ✅ para arrastrar con mouse/touch */
-      overflow: hidden;
-      cursor: grab;
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: pan-y; /* permite scroll vertical normal */
-    }
-    .medi-carousel-wrapper:active{ cursor: grabbing; }
+  /* 🔥 FULL WIDTH REAL */
+  width: 100vw;
+  max-width: none;
+
+  /* 🔥 rompe el centrado del layout padre */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+
+  /* padding interno opcional */
+  padding: 0 24px;
+
+  /* interacción */
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+}
+
+.medi-carousel-wrapper:active{
+  cursor: grabbing;
+}
 
     .medi-carousel{
       --side: 0px;
