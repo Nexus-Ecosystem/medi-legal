@@ -720,17 +720,22 @@
         </p>
 
         <div class="store-badges reveal">
-<a class="badge"
-   href="https://apps.apple.com/mx/app/medi/id6756452930"
-   target="_blank" rel="noopener"
-   aria-label="Descargar en App Store">
-  <img
+          <!-- ✅ APP STORE (OK) -->
+          <a class="badge"
+             href="https://apps.apple.com/mx/app/medi/id6756452930"
+             target="_blank" rel="noopener"
+             aria-label="Descargar en App Store">
+            <img
               src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
               alt="Descargar en App Store"
             />
           </a>
 
-          <a class="badge" href="#" aria-label="Descargar en Google Play">
+          <!-- ✅ GOOGLE PLAY (PON TU PACKAGE ID) -->
+          <a class="badge"
+             href="https://play.google.com/store/apps/details?id=TU_PACKAGE_ID"
+             target="_blank" rel="noopener"
+             aria-label="Descargar en Google Play">
             <img
               src="https://play.google.com/intl/en_us/badges/static/images/badges/es_badge_web_generic.png"
               alt="Descargar en Google Play"
@@ -968,14 +973,20 @@
       </p>
 
       <div class="medi-cta-badges">
-        <a href="#" aria-label="Descargar Medi en App Store">
+        <!-- ✅ APP STORE -->
+        <a href="https://apps.apple.com/mx/app/medi/id6756452930"
+           target="_blank" rel="noopener"
+           aria-label="Descargar Medi en App Store">
           <img
             src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
             alt="Descargar en App Store"
           />
         </a>
 
-        <a href="#" aria-label="Descargar Medi en Google Play">
+        <!-- ✅ GOOGLE PLAY (PON TU PACKAGE ID) -->
+        <a href="https://play.google.com/store/apps/details?id=TU_PACKAGE_ID"
+           target="_blank" rel="noopener"
+           aria-label="Descargar Medi en Google Play">
           <img
             src="https://play.google.com/intl/en_us/badges/static/images/badges/es_badge_web_generic.png"
             alt="Descargar en Google Play"
@@ -1018,7 +1029,6 @@
         <div class="nx-footer__col">
           <h4 class="nx-footer__title">EMPRESA</h4>
           <ul class="nx-footer__list">
-            <!-- ✅ CORRECCIÓN: rutas reales a legal/es -->
             <li>
               <a class="nx-footer__link" data-legal="terms"
                  href="../legal/es/terms.html" target="_blank" rel="noopener">
@@ -1062,7 +1072,6 @@
 
   <script>
     // ✅ Auto-detectar idioma para legal (ES/EN/PT)
-    // Si no lo quieres, puedes borrar este script (los links ya funcionan en ES).
     (function(){
       const lang = (navigator.language || "es").toLowerCase();
       const code = lang.startsWith("pt") ? "pt" : (lang.startsWith("en") ? "en" : "es");
@@ -1085,7 +1094,6 @@
       const path = (location.pathname || "").toLowerCase();
 
       function activeKey(){
-        // ✅ ojo: tu archivo se llama support.html
         if(path.includes("support")) return "soporte";
         if(path.includes("contacto")) return "contacto";
         return "medi";
@@ -1138,8 +1146,8 @@
       const track = document.getElementById("mediCarouselTrack");
       if(!wrapper || !track) return;
 
-      let position = 0;          // px
-      let direction = 1;         // 1 o -1
+      let position = 0;
+      let direction = 1;
       let isDragging = false;
 
       let startX = 0;
@@ -1151,9 +1159,9 @@
 
       let lastInteraction = Date.now();
 
-      const AUTO_SPEED = 0.22;     // lento
-      const IDLE_MS = 1200;        // si pasa 1.2s sin interacción, auto-mueve
-      const FRICTION = 0.92;       // inercia suave
+      const AUTO_SPEED = 0.22;
+      const IDLE_MS = 1200;
+      const FRICTION = 0.92;
       const MIN_VEL = 0.02;
 
       function clamp(v, min, max){
@@ -1197,7 +1205,7 @@
 
         const now = performance.now();
         const dt = Math.max(1, now - lastT);
-        const vx = (clientX - lastX) / dt;  // px/ms
+        const vx = (clientX - lastX) / dt;
         velocity = vx;
 
         lastX = clientX;
