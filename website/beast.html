@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nexus Ecosystem — Beast</title>
+
+  <!-- ROBOTO -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root{
+      /* Nexus base */
+      --nexus-blue-dark:#0B3C5D;
+      --nexus-blue:#1F6AE1;
+      --nexus-blue-light:#6EC1FF;
+
+      /* Header glass (default) */
+      --header-bg: linear-gradient(
+        180deg,
+        rgba(228, 238, 255, 0.75) 0%,
+        rgba(214, 230, 255, 0.45) 100%
+      );
+
+      --chip-bg: linear-gradient(90deg, rgba(31,106,225,.20), rgba(110,193,255,.25));
+      --chip-border: rgba(31,106,225,.30);
+      --text: #0B3C5D;
+
+      /* ================= BEAST THEME (ORANGE) ================= */
+      --be-ink: #2B1B0F;
+      --be-accent: #FF6A00;
+      --be-accent2: #FFD2A6;
+
+      --be-chip-bg: linear-gradient(90deg, rgba(255,106,0,.22), rgba(255,210,166,.34));
+      --be-chip-border: rgba(255,106,0,.28);
+
+      --be-header-bg: linear-gradient(
+        180deg,
+        rgba(255, 245, 235, 0.84) 0%,
+        rgba(255, 233, 212, 0.56) 100%
+      );
+    }
+
+    *{ box-sizing:border-box; }
+
+    /* ✅ FIX: NO uses overflow-y:auto aquí */
+    html, body{
+      margin:0;
+      padding:0;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body{
+      min-height: 100vh;
+      font-family:'Roboto', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background:#fff;
+      color:#1F2937;
+    }
+
+    /* =============== THEME: BEAST =============== */
+    body.theme-beast{
+      --header-bg: var(--be-header-bg);
+      --chip-bg: var(--be-chip-bg);
+      --chip-border: var(--be-chip-border);
+      --text: var(--be-ink);
+    }
+
+    /* ================= HEADER (ÚNICO FIJO) ================= */
+    header{
+      background: var(--header-bg);
+      padding: 20px 24px;
+
+      backdrop-filter: blur(14px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+
+      border-bottom: 1px solid rgba(255,255,255,0.35);
+      box-shadow: 0 8px 24px rgba(11,60,93,0.10);
+
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+    }
+
+    .header-inner{
+      max-width: 1200px;
+      margin: 0 auto;
+      display:grid;
+      grid-template-columns: auto 1fr auto;
+      align-items:center;
+      gap: 12px;
+    }
+
+    .logo{
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 14px rgba(11,60,93,.18));
+      justify-self: start;
+    }
+
+    nav{
+      position: relative;
+      display:flex;
+      gap: 6px;
+      padding: 6px;
+      border-radius: 999px;
+      justify-self: center;
+    }
+
+    .pill{
+      position:absolute;
+      inset: 6px auto 6px 6px;
+      width: 0;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      border: 1px solid var(--chip-border);
+      transition: transform .32s ease, width .32s ease;
+      pointer-events:none;
+    }
+
+    nav a{
+      position: relative;
+      z-index:2;
+      text-decoration:none;
+      font-size:14px;
+      font-weight:800;
+      color: var(--text);
+      padding: 10px 18px;
+      border-radius:999px;
+      min-width:96px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    nav a.active{ color: var(--text); }
+
+    @media (max-width:700px){
+      .header-inner{
+        grid-template-columns: 1fr;
+        gap: 14px;
+        justify-items:center;
+      }
+      .logo{ justify-self:center; }
+    }
+
+    /* ================= BEAST HERO ================= */
+    .be-hero{
+      background:
+        radial-gradient(980px 560px at 50% 18%, rgba(255,210,166,.62), transparent 62%),
+        linear-gradient(180deg, rgba(255,106,0,.34) 0%, rgba(255,210,166,.38) 52%, #FFFFFF 100%);
+      padding: 84px 24px 56px;
+    }
+
+    .be-hero-inner{
+      max-width: 980px;
+      margin: 0 auto;
+      text-align:center;
+    }
+
+    .be-badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(255,106,0,.18);
+      box-shadow: 0 14px 38px rgba(43,27,15,.12);
+      color: rgba(43,27,15,.92);
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+
+    .be-hero h1{
+      margin: 0 0 14px;
+      font-size: clamp(34px, 4.6vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--be-ink);
+      font-weight: 900;
+    }
+
+    .be-hero p{
+      margin: 0 auto 22px;
+      max-width: 760px;
+      font-size: 17px;
+      line-height: 1.85;
+      color: rgba(43,27,15,.74);
+    }
+
+    .be-hero-note{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.76);
+      border: 1px solid rgba(255,106,0,.16);
+      box-shadow: 0 18px 44px rgba(43,27,15,.10);
+      color: rgba(43,27,15,.78);
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    /* ================= SECCIÓN: QUÉ INCLUYE (V1) ================= */
+    .be-v1{
+      background:#fff;
+      padding: 46px 24px 40px;
+    }
+
+    .be-v1-inner{
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .be-card{
+      border-radius: 26px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,106,0,.14);
+      box-shadow: 0 26px 70px rgba(43,27,15,.10);
+      padding: 30px 28px;
+    }
+
+    .be-card h2{
+      margin: 0 0 10px;
+      font-size: 22px;
+      color: var(--be-ink);
+      font-weight: 900;
+      letter-spacing: -0.01em;
+    }
+
+    .be-card p{
+      margin: 0 0 14px;
+      font-size: 16px;
+      line-height: 1.9;
+      color: rgba(43,27,15,.74);
+    }
+
+    .be-list{
+      margin: 0;
+      padding-left: 18px;
+      color: rgba(43,27,15,.72);
+      line-height: 1.9;
+      font-size: 15.5px;
+    }
+
+    .be-list li{ margin: 6px 0; }
+    .be-strong{ font-weight: 900; color: rgba(43,27,15,.92); }
+
+    /* ================= SECCIÓN: LO QUE VIENE DESPUÉS ================= */
+    .be-next{
+      background:
+        radial-gradient(880px 460px at 50% 20%, rgba(255,210,166,.52), transparent 62%),
+        linear-gradient(180deg, #FFFFFF 0%, rgba(255,210,166,.30) 52%, rgba(255,106,0,.18) 100%);
+      padding: 64px 24px 74px;
+      position: relative;
+    }
+
+    .be-next-inner{
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align:center;
+    }
+
+    .be-next h2{
+      margin: 0 0 10px;
+      font-size: clamp(30px, 3.4vw, 46px);
+      color: var(--be-ink);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .be-next p{
+      margin: 0 auto 22px;
+      max-width: 840px;
+      font-size: 16.5px;
+      line-height: 1.85;
+      color: rgba(43,27,15,.72);
+    }
+
+    .be-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+      text-align:left;
+    }
+
+    .be-mini{
+      background: rgba(255,255,255,.90);
+      border: 1px solid rgba(255,106,0,.14);
+      border-radius: 18px;
+      box-shadow: 0 18px 46px rgba(43,27,15,.10);
+      padding: 18px 18px;
+    }
+
+    .be-mini h3{
+      margin: 0 0 8px;
+      font-size: 15.5px;
+      color: rgba(43,27,15,.92);
+      font-weight: 900;
+    }
+
+    .be-mini p{
+      margin: 0;
+      font-size: 14.5px;
+      line-height: 1.75;
+      color: rgba(43,27,15,.72);
+    }
+
+    @media (max-width: 940px){
+      .be-grid{ grid-template-columns: 1fr; }
+    }
+
+    /* ================= FOOTER (Nexus) ================= */
+    :root{
+      --nx-bg: #0B1220;
+      --nx-border: rgba(255,255,255,.12);
+      --nx-text: rgba(255,255,255,.82);
+      --nx-muted: rgba(255,255,255,.58);
+      --nx-soft: rgba(255,255,255,.42);
+      --nx-accent: #1F6AE1;
+      --nx-accent2: #6EC1FF;
+    }
+
+    .nx-footer{
+      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      background:
+        radial-gradient(900px 320px at 18% 0%, rgba(31,106,225,.20), transparent 58%),
+        radial-gradient(900px 320px at 82% 0%, rgba(110,193,255,.14), transparent 60%),
+        var(--nx-bg);
+      color: var(--nx-text);
+      padding: 40px 18px 18px;
+      border-top: 1px solid var(--nx-border);
+    }
+
+    .nx-footer__inner{
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.35fr 1.65fr;
+      gap: 26px;
+      align-items: start;
+    }
+
+    .nx-footer__brand{ padding-top: 2px; }
+
+    .nx-footer__brandTop{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 36px;
+    }
+
+    .nx-logo{
+      width: 42px;
+      height: 42px;
+      display: block;
+      object-fit: contain;
+      flex: 0 0 auto;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
+    }
+
+    .nx-footer__brandName{
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: .2px;
+      color: rgba(255,255,255,.92);
+      line-height: 1.1;
+    }
+
+    .nx-footer__brandDesc{
+      margin-top: 6px;
+      font-size: 14px;
+      line-height: 1.45;
+      color: var(--nx-muted);
+      max-width: 420px;
+    }
+
+    .nx-footer__cols{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(160px, 1fr));
+      gap: 18px;
+    }
+
+    .nx-footer__title{
+      margin: 0 0 10px;
+      font-size: 13px;
+      letter-spacing: .7px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.86);
+      line-height: 1.1;
+    }
+
+    .nx-footer__list{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .nx-footer__link{
+      color: var(--nx-muted);
+      text-decoration: none;
+      font-size: 14px;
+      display: inline-block;
+      padding: 6px 0;
+      transition: color .15s ease, transform .15s ease;
+    }
+
+    .nx-footer__link:hover{
+      color: rgba(255,255,255,.92);
+      transform: translateY(-1px);
+    }
+
+    .nx-footer__email{
+      color: rgba(255,255,255,.60);
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      line-height: 1.35;
+    }
+
+    .nx-footer__bottom{
+      max-width: 1120px;
+      margin: 22px auto 0;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: var(--nx-soft);
+      font-size: 13px;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+
+    @media (max-width: 940px){
+      .nx-footer__inner{ grid-template-columns: 1fr; }
+      .nx-footer__cols{
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-top: 10px;
+      }
+      .nx-footer__brandDesc{ max-width: 100%; }
+    }
+
+    /* ✅ Suave reveal */
+    .reveal{
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .55s ease, transform .55s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.is-visible{
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="theme-beast">
+
+  <!-- ================= HEADER ================= -->
+  <header>
+    <div class="header-inner">
+      <img
+        src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/nexus_icon.png"
+        class="logo"
+        alt="Nexus Ecosystem Logo"
+      />
+
+      <nav id="nav">
+        <div class="pill" id="pill"></div>
+
+        <a href="./index.html" data-key="medi">Medi</a>
+        <a href="./aura-zen.html" data-key="aurazen">Aura Zen</a>
+        <a href="./beast.html" data-key="beast">Beast</a>
+
+        <a href="./support.html" data-key="soporte">Soporte</a>
+        <a href="./contacto.html" data-key="contacto">Contacto</a>
+      </nav>
+
+      <div></div>
+    </div>
+  </header>
+
+  <!-- ================= HERO (BEAST) ================= -->
+  <section class="be-hero" id="beast">
+    <div class="be-hero-inner">
+      <div class="be-badge reveal">🔥 PRÓXIMAMENTE · BEAST</div>
+
+      <h1 class="reveal">Tu estudio de spinning, organizado y sin fricción</h1>
+
+      <p class="reveal">
+        <strong>Beast</strong> está pensado para estudios de spinning y sus alumnos:
+        agenda clara, disponibilidad real y avisos importantes en un solo lugar.
+        Esta landing es <strong>informativa</strong>: muestra lo que incluirá la primera versión.
+      </p>
+
+      <div class="be-hero-note reveal">
+        📅 Agenda · 🚲 Bicis disponibles · 🔔 Avisos y días festivos
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= QUÉ INCLUIRÁ (V1) ================= -->
+  <section class="be-v1">
+    <div class="be-v1-inner">
+      <div class="be-card reveal">
+        <h2>Qué incluirá Beast (v1)</h2>
+        <p>
+          La primera versión se enfoca en lo esencial para un estudio de spinning:
+          <span class="be-strong">gestión de agenda</span>, <span class="be-strong">paquetes</span>
+          y <span class="be-strong">reservas</span> con información clara.
+        </p>
+
+        <ul class="be-list">
+          <li><span class="be-strong">Agenda de clases</span> por día/semana con horarios.</li>
+          <li><span class="be-strong">Comprar paquetes</span> (mensuales o por número de clases).</li>
+          <li><span class="be-strong">Disponibilidad de bicis</span> antes de reservar.</li>
+          <li><span class="be-strong">Agendar o cancelar</span> tu clase en segundos.</li>
+          <li><span class="be-strong">Avisos del estudio</span>: cambios de horario, instructor, mantenimiento, etc.</li>
+          <li><span class="be-strong">Notificación de días festivos</span>: si se abre, horarios especiales o cierre.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LO QUE VIENE DESPUÉS ================= -->
+  <section class="be-next" id="next">
+    <div class="be-next-inner">
+      <h2 class="reveal">Lo que viene después</h2>
+      <p class="reveal">
+        Beast irá creciendo por etapas para que el estudio y los alumnos tengan una experiencia rápida,
+        clara y sin vueltas.
+      </p>
+
+      <div class="be-grid">
+        <article class="be-mini reveal">
+          <h3>Check-in y acceso</h3>
+          <p>Validación rápida al llegar, lista de asistencia y control de cupo.</p>
+        </article>
+
+        <article class="be-mini reveal">
+          <h3>Recordatorios inteligentes</h3>
+          <p>Alertas antes de clase, cambios de sala y avisos urgentes del estudio.</p>
+        </article>
+
+        <article class="be-mini reveal">
+          <h3>Perfil del alumno</h3>
+          <p>Historial de clases, paquetes activos y próximas reservas en un vistazo.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER — Nexus Ecosystem (MISMO) ================= -->
+  <footer class="nx-footer">
+    <div class="nx-footer__inner">
+
+      <div class="nx-footer__brand">
+        <div class="nx-footer__brandTop">
+          <img
+            src="https://raw.githubusercontent.com/Nexus-Ecosystem/medi-legal/main/assets/nexus_icon.png"
+            class="nx-logo"
+            alt="Nexus Ecosystem Logo"
+          />
+          <div class="nx-footer__brandText">
+            <div class="nx-footer__brandName">Nexus Ecosystem</div>
+            <div class="nx-footer__brandDesc">Ecosistema de apps y soluciones digitales modernas.</div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="nx-footer__cols" aria-label="Enlaces del sitio">
+        <div class="nx-footer__col">
+          <h4 class="nx-footer__title">APPS</h4>
+          <ul class="nx-footer__list">
+            <li><a class="nx-footer__link" href="./index.html">Medi</a></li>
+            <li><a class="nx-footer__link" href="./aura-zen.html">Aura Zen</a></li>
+            <li><a class="nx-footer__link" href="./beast.html">Beast</a></li>
+          </ul>
+        </div>
+
+        <div class="nx-footer__col">
+          <h4 class="nx-footer__title">EMPRESA</h4>
+          <ul class="nx-footer__list">
+            <li>
+              <a class="nx-footer__link" data-legal="terms"
+                 href="../legal/es/terms.html" target="_blank" rel="noopener">
+                Términos y condiciones
+              </a>
+            </li>
+            <li>
+              <a class="nx-footer__link" data-legal="privacy"
+                 href="../legal/es/privacy-policy.html" target="_blank" rel="noopener">
+                Aviso de privacidad
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="nx-footer__col">
+          <h4 class="nx-footer__title">CONTACTO</h4>
+          <ul class="nx-footer__list">
+            <li>
+              <a class="nx-footer__link nx-footer__email" href="mailto:nexus.ecosystem.soporte@gmail.com">
+                nexus.ecosystem.soporte@gmail.com
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="nx-footer__bottom">
+      <span>© <span id="nxYear"></span> Nexus Ecosystem</span>
+    </div>
+  </footer>
+
+  <script>
+    // Año footer
+    (function () {
+      var el = document.getElementById("nxYear");
+      if (el) el.textContent = new Date().getFullYear();
+    })();
+  </script>
+
+  <script>
+    // ✅ Auto-detectar idioma para legal (ES/EN/PT)
+    (function(){
+      const lang = (navigator.language || "es").toLowerCase();
+      const code = lang.startsWith("pt") ? "pt" : (lang.startsWith("en") ? "en" : "es");
+
+      document.querySelectorAll("[data-legal='terms']").forEach(a => {
+        a.setAttribute("href", `../legal/${code}/terms.html`);
+      });
+      document.querySelectorAll("[data-legal='privacy']").forEach(a => {
+        a.setAttribute("href", `../legal/${code}/privacy-policy.html`);
+      });
+    })();
+  </script>
+
+  <script>
+    // ===== PILL CHIP (ACTIVO POR URL REAL) =====
+    (function(){
+      const nav = document.getElementById("nav");
+      const pill = document.getElementById("pill");
+      if(!nav || !pill) return;
+
+      const links = Array.from(nav.querySelectorAll("a"));
+      const currentPath = (location.pathname || "").toLowerCase();
+      const currentFile = currentPath.split("/").pop() || ""; // beast.html, index.html, etc
+
+      function keyByCurrentUrl(){
+        // 1) Match por archivo exacto
+        if (currentFile) {
+          const exact = links.find(a => {
+            const href = (a.getAttribute("href") || "").toLowerCase();
+            return href.endsWith("/" + currentFile) || href.endsWith(currentFile);
+          });
+          if (exact?.dataset?.key) return exact.dataset.key;
+        }
+
+        // 2) Fallback por contains
+        if(currentPath.includes("aura-zen")) return "aurazen";
+        if(currentPath.includes("beast")) return "beast";
+        if(currentPath.includes("support")) return "soporte";
+        if(currentPath.includes("contacto")) return "contacto";
+        return "medi";
+      }
+
+      function movePill(key){
+        links.forEach(a => a.classList.toggle("active", a.dataset.key === key));
+        const active = links.find(a => a.dataset.key === key) || links[0];
+
+        const navRect = nav.getBoundingClientRect();
+        const aRect = active.getBoundingClientRect();
+
+        pill.style.width = aRect.width + "px";
+        pill.style.transform = `translateX(${aRect.left - navRect.left}px)`;
+      }
+
+      function init(){
+        const key = keyByCurrentUrl();
+        movePill(key);
+        requestAnimationFrame(()=>movePill(key));
+        setTimeout(()=>movePill(key), 120);
+        setTimeout(()=>movePill(key), 260);
+      }
+
+      window.addEventListener("load", init);
+      window.addEventListener("resize", ()=>{
+        const current = links.find(a=>a.classList.contains("active")) || links[0];
+        movePill(current.dataset.key);
+      });
+    })();
+  </script>
+
+  <script>
+    // ===== REVEAL SUAVE =====
+    (function(){
+      const els = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.16, rootMargin: "0px 0px -10% 0px" });
+
+      els.forEach(el=>io.observe(el));
+    })();
+  </script>
+
+</body>
+</html>
