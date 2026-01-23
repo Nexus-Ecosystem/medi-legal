@@ -12,7 +12,7 @@
 
   <style>
     :root{
-      /* Nexus */
+      /* Nexus base */
       --nexus-blue-dark:#0B3C5D;
       --nexus-blue:#1F6AE1;
       --nexus-blue-light:#6EC1FF;
@@ -35,7 +35,7 @@
       --shadow: 0 18px 60px rgba(8,28,58,0.10);
       --muted: rgba(8,28,58,0.70);
 
-      /* Footer */
+      /* Footer (Nexus) */
       --nx-bg: #0B1220;
       --nx-border: rgba(255,255,255,.12);
       --nx-text: rgba(255,255,255,.82);
@@ -46,26 +46,31 @@
     }
 
     *{ box-sizing:border-box; }
+
+    /* ✅ mismo fix que tus otras landings (no overflow-y:auto) */
     html, body{
       margin:0;
       padding:0;
+      height: 100%;
       overflow-x:hidden;
       background: var(--page-bg);
       font-family:'Roboto', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       color:#111827;
     }
 
-    /* ================= HEADER ================= */
+    /* ================= HEADER (NUEVO) ================= */
     header{
       background: var(--header-bg);
       padding: 20px 24px;
 
       backdrop-filter: blur(14px) saturate(160%);
       -webkit-backdrop-filter: blur(14px) saturate(160%);
-      background-color: rgba(255,255,255,0.55);
+
+      /* ✅ NO pisa el gradiente */
+      /* background-color: rgba(255,255,255,0.55); */
 
       border-bottom: 1px solid rgba(255,255,255,0.35);
-      box-shadow: 0 8px 24px rgba(11,60,93,0.12);
+      box-shadow: 0 8px 24px rgba(11,60,93,0.10);
 
       position: sticky;
       top: 0;
@@ -114,7 +119,7 @@
       z-index:2;
       text-decoration:none;
       font-size:14px;
-      font-weight:900;
+      font-weight:800;
       color: var(--text);
       padding: 10px 18px;
       border-radius:999px;
@@ -126,7 +131,7 @@
       white-space: nowrap;
     }
 
-    nav a.active{ color: var(--nexus-blue-dark); }
+    nav a.active{ color: var(--text); }
 
     @media (max-width:700px){
       .header-inner{
@@ -317,7 +322,6 @@
       min-height: 92px;
     }
 
-    /* ✅ Íconos simples premium (line icons) */
     .hl-icon{
       width: 42px;
       height: 42px;
@@ -431,7 +435,6 @@
       padding: 0 0 90px;
     }
 
-    /* ✅ Fondo más gris/premium (como pediste) */
     .contact-card{
       background:
         radial-gradient(900px 380px at 20% 0%, rgba(31,106,225,.10), transparent 60%),
@@ -486,8 +489,9 @@
       word-break: break-word;
     }
 
-    /* ================= FOOTER (Nexus) ================= */
+    /* ================= FOOTER (NUEVO: MISMO QUE AURA/BEAST) ================= */
     .nx-footer{
+      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
       background:
         radial-gradient(900px 320px at 18% 0%, rgba(31,106,225,.20), transparent 58%),
         radial-gradient(900px 320px at 82% 0%, rgba(110,193,255,.14), transparent 60%),
@@ -506,6 +510,8 @@
       align-items: start;
     }
 
+    .nx-footer__brand{ padding-top: 2px; }
+
     .nx-footer__brandTop{
       display: flex;
       align-items: center;
@@ -523,7 +529,7 @@
     }
 
     .nx-footer__brandName{
-      font-weight: 900;
+      font-weight: 800;
       font-size: 18px;
       letter-spacing: .2px;
       color: rgba(255,255,255,.92);
@@ -619,7 +625,7 @@
   </style>
 </head>
 
-<body data-page="soporte">
+<body>
   <!-- ================= HEADER ================= -->
   <header>
     <div class="header-inner">
@@ -631,9 +637,13 @@
 
       <nav id="nav" aria-label="Navegación">
         <div class="pill" id="pill"></div>
-        <a href="index.html" data-key="medi">Medi</a>
-        <a href="soporte.html" data-key="soporte">Soporte</a>
-        <a href="contacto.html" data-key="contacto">Contacto</a>
+
+        <a href="./index.html" data-key="medi">Medi</a>
+        <a href="./aura-zen.html" data-key="aurazen">Aura Zen</a>
+        <a href="./beast.html" data-key="beast">Beast</a>
+
+        <a href="./support.html" data-key="soporte">Soporte</a>
+        <a href="./contacto.html" data-key="contacto">Contacto</a>
       </nav>
 
       <div></div>
@@ -679,7 +689,6 @@
       <div class="hl-grid">
         <div class="hl reveal">
           <div class="hl-icon" aria-hidden="true">
-            <!-- Bolt -->
             <svg viewBox="0 0 24 24">
               <path d="M13 2L3 14h8l-1 8 11-14h-8l0-6z"></path>
             </svg>
@@ -692,7 +701,6 @@
 
         <div class="hl reveal">
           <div class="hl-icon" aria-hidden="true">
-            <!-- Lock -->
             <svg viewBox="0 0 24 24">
               <path d="M7 11V8a5 5 0 0 1 10 0v3"></path>
               <path d="M6 11h12v10H6z"></path>
@@ -706,7 +714,6 @@
 
         <div class="hl reveal">
           <div class="hl-icon" aria-hidden="true">
-            <!-- Cloud -->
             <svg viewBox="0 0 24 24">
               <path d="M7 18h10a4 4 0 0 0 0-8 6 6 0 0 0-11.5 1.5A3.5 3.5 0 0 0 7 18z"></path>
             </svg>
@@ -719,7 +726,6 @@
 
         <div class="hl reveal">
           <div class="hl-icon" aria-hidden="true">
-            <!-- Puzzle -->
             <svg viewBox="0 0 24 24">
               <path d="M9 3h6v4a2 2 0 1 0 0 4v4H9v-4a2 2 0 1 1 0-4V3z"></path>
               <path d="M3 9h4a2 2 0 1 1 4 0h4v6H3V9z"></path>
@@ -813,8 +819,7 @@
             Contactar Soporte
           </a>
 
-          <!-- ✅ Ahora sí se ve bien en fondo gris -->
-          <a class="btn btn-light" href="index.html">Volver a Medi</a>
+          <a class="btn btn-light" href="./index.html">Volver a Medi</a>
         </div>
 
         <div class="email-inline">
@@ -824,7 +829,7 @@
     </div>
   </section>
 
-  <!-- ================= FOOTER ================= -->
+  <!-- ================= FOOTER (NUEVO) ================= -->
   <footer class="nx-footer">
     <div class="nx-footer__inner">
       <div class="nx-footer__brand">
@@ -845,15 +850,27 @@
         <div class="nx-footer__col">
           <h4 class="nx-footer__title">APPS</h4>
           <ul class="nx-footer__list">
-            <li><a class="nx-footer__link" href="index.html">Medi</a></li>
+            <li><a class="nx-footer__link" href="./index.html">Medi</a></li>
+            <li><a class="nx-footer__link" href="./aura-zen.html">Aura Zen</a></li>
+            <li><a class="nx-footer__link" href="./beast.html">Beast</a></li>
           </ul>
         </div>
 
         <div class="nx-footer__col">
           <h4 class="nx-footer__title">EMPRESA</h4>
           <ul class="nx-footer__list">
-            <li><a class="nx-footer__link" href="index.html#terminos">Términos y condiciones</a></li>
-            <li><a class="nx-footer__link" href="index.html#privacidad">Aviso de privacidad</a></li>
+            <li>
+              <a class="nx-footer__link" data-legal="terms"
+                 href="../legal/es/terms.html" target="_blank" rel="noopener">
+                Términos y condiciones
+              </a>
+            </li>
+            <li>
+              <a class="nx-footer__link" data-legal="privacy"
+                 href="../legal/es/privacy-policy.html" target="_blank" rel="noopener">
+                Aviso de privacidad
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -876,7 +893,6 @@
   </footer>
 
   <script>
-    // Año footer
     (function () {
       var el = document.getElementById("nxYear");
       if (el) el.textContent = new Date().getFullYear();
@@ -884,18 +900,45 @@
   </script>
 
   <script>
-    // ===== PILL CHIP (✅ aquí queda SIEMPRE en Soporte por data-page) =====
+    (function(){
+      const lang = (navigator.language || "es").toLowerCase();
+      const code = lang.startsWith("pt") ? "pt" : (lang.startsWith("en") ? "en" : "es");
+
+      document.querySelectorAll("[data-legal='terms']").forEach(a => {
+        a.setAttribute("href", `../legal/${code}/terms.html`);
+      });
+      document.querySelectorAll("[data-legal='privacy']").forEach(a => {
+        a.setAttribute("href", `../legal/${code}/privacy-policy.html`);
+      });
+    })();
+  </script>
+
+  <script>
+    // ===== PILL CHIP (ACTIVO POR URL REAL) =====
     (function(){
       const nav = document.getElementById("nav");
       const pill = document.getElementById("pill");
-      const links = Array.from(nav.querySelectorAll("a"));
+      if(!nav || !pill) return;
 
-      function activeKey(){
-        const page = (document.body.dataset.page || "").toLowerCase();
-        if(page) return page; // "soporte"
-        const path = (location.pathname || "").toLowerCase();
-        if(path.includes("soporte")) return "soporte";
-        if(path.includes("contacto")) return "contacto";
+      const links = Array.from(nav.querySelectorAll("a"));
+      const currentPath = (location.pathname || "").toLowerCase();
+      const currentFile = currentPath.split("/").pop() || ""; // support.html, etc
+
+      function keyByCurrentUrl(){
+        // 1) Match por archivo exacto
+        if (currentFile) {
+          const exact = links.find(a => {
+            const href = (a.getAttribute("href") || "").toLowerCase();
+            return href.endsWith("/" + currentFile) || href.endsWith(currentFile);
+          });
+          if (exact?.dataset?.key) return exact.dataset.key;
+        }
+
+        // 2) Fallback por contains
+        if(currentPath.includes("aura-zen")) return "aurazen";
+        if(currentPath.includes("beast")) return "beast";
+        if(currentPath.includes("support") || currentPath.includes("soporte")) return "soporte";
+        if(currentPath.includes("contacto")) return "contacto";
         return "medi";
       }
 
@@ -911,10 +954,11 @@
       }
 
       function init(){
-        const key = activeKey();
+        const key = keyByCurrentUrl();
         movePill(key);
         requestAnimationFrame(()=>movePill(key));
         setTimeout(()=>movePill(key), 120);
+        setTimeout(()=>movePill(key), 260);
       }
 
       window.addEventListener("load", init);
@@ -944,4 +988,3 @@
 
 </body>
 </html>
-
