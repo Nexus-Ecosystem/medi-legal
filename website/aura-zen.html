@@ -43,15 +43,16 @@
 
     *{ box-sizing:border-box; }
 
+    /* ✅ FIX: NO uses overflow-y:auto aquí (rompe sticky en Safari/Chrome según layout) */
     html, body{
       margin:0;
       padding:0;
-      height:auto;
-      overflow-x:hidden;
-      overflow-y:auto;
+      height: 100%;
+      overflow-x: hidden;
     }
 
     body{
+      min-height: 100vh;
       font-family:'Roboto', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       background:#fff;
       color:#1F2937;
@@ -72,12 +73,14 @@
 
       backdrop-filter: blur(14px) saturate(160%);
       -webkit-backdrop-filter: blur(14px) saturate(160%);
-      background-color: rgba(255,255,255,0.55);
+
+      /* ✅ no “pisa” el gradiente */
+      /* background-color: rgba(255,255,255,0.55); */
 
       border-bottom: 1px solid rgba(255,255,255,0.35);
       box-shadow: 0 8px 24px rgba(11,60,93,0.10);
 
-      position: sticky; /* ✅ SOLO EL HEADER */
+      position: sticky;
       top: 0;
       z-index: 9999;
     }
@@ -136,9 +139,7 @@
       white-space: nowrap;
     }
 
-    nav a.active{
-      color: var(--text);
-    }
+    nav a.active{ color: var(--text); }
 
     @media (max-width:700px){
       .header-inner{
@@ -256,12 +257,11 @@
     .az-list li{ margin: 6px 0; }
     .az-strong{ font-weight: 900; color: rgba(43,27,75,.92); }
 
-    /* ============== SECCIÓN: LO QUE VIENE DESPUÉS (SCROLL NORMAL, NO STICKY) ============== */
+    /* ============== SECCIÓN: LO QUE VIENE DESPUÉS ============== */
     .az-next{
       background: radial-gradient(820px 420px at 50% 20%, rgba(217,199,255,.45), transparent 62%),
                   linear-gradient(180deg, #FFFFFF 0%, rgba(217,199,255,.25) 52%, rgba(122,92,255,.18) 100%);
       padding: 64px 24px 74px;
-      /* ✅ nada sticky aquí */
       position: relative;
     }
 
@@ -453,7 +453,6 @@
       .nx-footer__brandDesc{ max-width: 100%; }
     }
 
-    /* ✅ Suave reveal (opcional, no sticky) */
     .reveal{
       opacity: 0;
       transform: translateY(12px);
@@ -481,13 +480,12 @@
       <nav id="nav">
         <div class="pill" id="pill"></div>
 
-        <!-- ✅ Emojis OK, PERO Aura Zen SIN emoji (como pediste) -->
-        <a href="./index.html" data-key="medi">💊 Medi</a>
+        <a href="./index.html" data-key="medi">Medi</a>
         <a href="./aura-zen.html" data-key="aurazen">Aura Zen</a>
-        <a href="./beast.html" data-key="beast">🔥 Beast</a>
+        <a href="./beast.html" data-key="beast">Beast</a>
 
-        <a href="./support.html" data-key="soporte">🛟 Soporte</a>
-        <a href="./contacto.html" data-key="contacto">✉️ Contacto</a>
+        <a href="./support.html" data-key="soporte">Soporte</a>
+        <a href="./contacto.html" data-key="contacto">Contacto</a>
       </nav>
 
       <div></div>
@@ -533,7 +531,7 @@
     </div>
   </section>
 
-  <!-- ============== LO QUE VIENE DESPUÉS (SCROLL NORMAL) ============== -->
+  <!-- ============== LO QUE VIENE DESPUÉS ============== -->
   <section class="az-next" id="next">
     <div class="az-next-inner">
       <h2 class="reveal">Lo que viene después</h2>
@@ -561,10 +559,9 @@
     </div>
   </section>
 
-  <!-- ================= FOOTER — Nexus Ecosystem (MISMO) ================= -->
+  <!-- ================= FOOTER ================= -->
   <footer class="nx-footer">
     <div class="nx-footer__inner">
-
       <div class="nx-footer__brand">
         <div class="nx-footer__brandTop">
           <img
@@ -626,7 +623,6 @@
   </footer>
 
   <script>
-    // Año footer
     (function () {
       var el = document.getElementById("nxYear");
       if (el) el.textContent = new Date().getFullYear();
@@ -634,7 +630,6 @@
   </script>
 
   <script>
-    // ✅ Auto-detectar idioma para legal (ES/EN/PT)
     (function(){
       const lang = (navigator.language || "es").toLowerCase();
       const code = lang.startsWith("pt") ? "pt" : (lang.startsWith("en") ? "en" : "es");
@@ -649,51 +644,66 @@
   </script>
 
   <script>
-    // ===== PILL CHIP (ACTIVO CORRECTO: AURA ZEN EN ESTA PÁGINA) =====
-    (function(){
-      const nav = document.getElementById("nav");
-      const pill = document.getElementById("pill");
-      if(!nav || !pill) return;
+  // ===== PILL CHIP (ACTIVO POR URL REAL) =====
+  (function(){
+    const nav = document.getElementById("nav");
+    const pill = document.getElementById("pill");
+    if(!nav || !pill) return;
 
-      const links = Array.from(nav.querySelectorAll("a"));
-      const path = (location.pathname || "").toLowerCase();
+    const links = Array.from(nav.querySelectorAll("a"));
+    const currentPath = (location.pathname || "").toLowerCase();
+    const currentFile = currentPath.split("/").pop() || ""; // aura-zen.html, index.html, etc
 
-      function activeKey(){
-        if(path.includes("aura-zen")) return "aurazen";
-        if(path.includes("beast")) return "beast";
-        if(path.includes("support")) return "soporte";
-        if(path.includes("contacto")) return "contacto";
-        return "medi";
+    function keyByCurrentUrl(){
+      // 1) Match por archivo exacto (más confiable)
+      if (currentFile) {
+        const exact = links.find(a => {
+          const href = (a.getAttribute("href") || "").toLowerCase();
+          return href.endsWith("/" + currentFile) || href.endsWith(currentFile);
+        });
+        if (exact?.dataset?.key) return exact.dataset.key;
       }
 
-      function movePill(key){
-        links.forEach(a => a.classList.toggle("active", a.dataset.key === key));
-        const active = links.find(a => a.dataset.key === key) || links[0];
+      // 2) Fallback por contains
+      if(currentPath.includes("aura-zen")) return "aurazen";
+      if(currentPath.includes("beast")) return "beast";
+      if(currentPath.includes("support")) return "soporte";
+      if(currentPath.includes("contacto")) return "contacto";
+      return "medi";
+    }
 
-        const navRect = nav.getBoundingClientRect();
-        const aRect = active.getBoundingClientRect();
+    function movePill(key){
+      links.forEach(a => a.classList.toggle("active", a.dataset.key === key));
+      const active = links.find(a => a.dataset.key === key) || links[0];
 
-        pill.style.width = aRect.width + "px";
-        pill.style.transform = `translateX(${aRect.left - navRect.left}px)`;
-      }
+      const navRect = nav.getBoundingClientRect();
+      const aRect = active.getBoundingClientRect();
 
-      function init(){
-        const key = activeKey();
-        movePill(key);
-        requestAnimationFrame(()=>movePill(key));
-        setTimeout(()=>movePill(key), 120);
-      }
+      pill.style.width = aRect.width + "px";
+      pill.style.transform = `translateX(${aRect.left - navRect.left}px)`;
+    }
 
-      window.addEventListener("load", init);
-      window.addEventListener("resize", ()=>{
-        const current = links.find(a=>a.classList.contains("active")) || links[0];
-        movePill(current.dataset.key);
-      });
-    })();
-  </script>
+    function init(){
+      const key = keyByCurrentUrl();
+      movePill(key);
+
+      // reflow / fonts / layout settle
+      requestAnimationFrame(()=>movePill(key));
+      setTimeout(()=>movePill(key), 120);
+      setTimeout(()=>movePill(key), 260);
+    }
+
+    window.addEventListener("load", init);
+    window.addEventListener("resize", ()=>{
+      const current = links.find(a=>a.classList.contains("active")) || links[0];
+      movePill(current.dataset.key);
+    });
+  })();
+</script>
+
 
   <script>
-    // ===== REVEAL SUAVE (nada fijo) =====
+    // ===== REVEAL SUAVE =====
     (function(){
       const els = document.querySelectorAll(".reveal");
       const io = new IntersectionObserver((entries)=>{
